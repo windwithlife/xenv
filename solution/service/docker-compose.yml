@@ -9,7 +9,24 @@ networks:
 
 services:
 
-
+  reverse-proxy:
+    # 官方的 Traefik 2.0 Docker 镜像
+    image: traefik:v2.0
+    # 开启 web UI 并且告诉 Traefik 监听 Docker
+    command: --api.insecure=true --providers.docker
+    ports:
+      # HTTP 端口
+      - "80:80"
+      # Web UI 端口(通过 --api.insecure=true 启用)
+      - "8080:8080"
+    volumes:
+      # 这样 Traefik 可以监听 Docker 事件
+      - /var/run/docker.sock:/var/run/docker.sock
+  whoami:
+    # 一个通过 API 暴露其 IP 地址的容器
+    image: containous/whoami
+    labels:
+      - "traefik.http.routers.whoami.rule=Host(`test.zhangyongqiao`)"
   # 使用mysql
   service_mysql:
     image: mysql

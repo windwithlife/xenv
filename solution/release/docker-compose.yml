@@ -10,23 +10,40 @@ networks:
 services:
   # 使用caddy做反向代理
   # 使用nginx做反向代理
-  nginx:
-    image: nginx:alpine
-    container_name: nginx
+  # nginx:
+  #   image: nginx:alpine
+  #   container_name: nginx
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   restart: always
+  #   networks:
+  #     - dronenet
+  #   depends_on:
+  #    - gitea_server
+  #   volumes:
+  #     - ./nginx/conf:/etc/nginx/conf.d:rw
+  #     - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+  #     - ./nginx/log/:/var/log/nginx/:rw
+
+  reverse-proxy:
+    # 官方的 Traefik 2.0 Docker 镜像
+    image: traefik:v2.0
+    # 开启 web UI 并且告诉 Traefik 监听 Docker
+    command: --api.insecure=true --providers.docker
     ports:
+      # HTTP 端口
       - "80:80"
-      - "443:443"
-    restart: always
-    networks:
-      - dronenet
-    depends_on:
-     - gitea_server
+      # Web UI 端口(通过 --api.insecure=true 启用)
+      - "8080:8080"
     volumes:
-      - ./nginx/conf:/etc/nginx/conf.d:rw
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./nginx/log/:/var/log/nginx/:rw
-
-
+      # 这样 Traefik 可以监听 Docker 事件
+      - /var/run/docker.sock:/var/run/docker.sock
+  whoami:
+    # 一个通过 API 暴露其 IP 地址的容器
+    image: containous/whoami
+    labels:
+      - "traefik.http.routers.whoami.rule=Host(`test.zhangyongqiao`)"
   #gitea server
   gitea_server:
     image: ${GITEA_DOCKER_IMAGE}
@@ -135,6 +152,8 @@ services:
 
   drone-runner:
     image: ${DRONE_RUNNER_DOCKER_IMAGE}
+    labels:
+      - "traefik.http.routers.dronerunner.rule=Host(`drone.zhangyongqiao.com`)"
     container_name: drone_runner
     expose:
       - 3000
