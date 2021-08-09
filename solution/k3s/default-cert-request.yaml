@@ -5,10 +5,6 @@ metadata:
 spec:
   dnsNames:
     - api.zhangyongqiao.com
-    - api.koudaibook.com
-    - service.koudaibook.com
-    - mobile.zhangyongqiao.com
-    - service.zhangyongqiao.com
   secretName: ingress-secret-koudaibook
   issuerRef:
     name: letsencrypt
