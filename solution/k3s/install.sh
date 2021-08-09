@@ -11,11 +11,14 @@ cp linux-amd64/helm /usr/local/bin
 
 //阿里云的Helm私人仓库
 #helm repo add $NAMESPACE https://repomanage.rdc.aliyun.com/helm_repositories/$NAMESPACE --username=zx7h6P --password=F4EpoIe7Ms
+//配置k3s可操作
+export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
 
 //安装helm push 
 helm plugin install https://github.com/chartmuseum/helm-pus
 
 //安装证书管理器
+wget https://github.com/jetstack/cert-manager/releases/download/v1.0.3/cert-manager.yaml
 kubectl apply -f ./cert-manager.yaml
 //配置证书 provider
 kubectl apply -f ./cert-issuecluster-traefik.yaml
