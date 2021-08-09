@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: redis-standalone
+spec:
+  replicas: 1
+  serviceName: redis-standalone
+  selector:
+    matchLabels:
+      name: redis-standalone
+  template:
+    metadata:
+      labels:
+        name: redis-standalone
+    spec:
+      initContainers:
+      - name: init-redis-standalone
+        image: busybox
+        command: ['sh', '-c', 'mkdir -p /redis/log/;mkdir -p /redis/conf/;mkdir -p /redis/data/']
+        volumeMounts:
+        - name: data
+          mountPath: /redis/
+      containers:
+      - name: redis-standalone
+        image: redis:5.0.6
+        imagePullPolicy: IfNotPresent
+        command:
+        - sh
+        - -c
+        - "exec redis-server /redis/conf/redis.conf"
+        ports:
+        - containerPort: 6379
+          name: redis
+          protocol: TCP
+        volumeMounts:
+        - name: redis-config
+          mountPath: /redis/conf/
+        - name: data
+          mountPath: /redis/
+      volumes:
+      - name: redis-config
+        configMap:
+          name: redis-standalone-conf
+      - name: data
+        hostPath:
+          path: /redis/

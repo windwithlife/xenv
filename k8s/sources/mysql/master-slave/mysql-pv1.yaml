@@ -1,0 +1,17 @@
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-1
+spec:
+  storageClassName: mysql-sc
+  capacity:
+    storage: 1Gi
+  accessModes: 
+  - ReadWriteOnce
+  - ReadOnlyMany
+   #persistentVolumeReclaimPolicy: Retain # 当声明被释放，pv将保留(不清理和删除)
+  persistentVolumeReclaimPolicy: Recycle # 当声明被释放，空间将回收再利用
+  nfs:
+    server:  172.23.206.102
+    path: /net/mysql-1

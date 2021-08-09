@@ -1,0 +1,47 @@
+# Headless service for stable DNS entries of StatefulSet members.
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-svc-master
+  labels:
+    app: mysql
+spec:
+  selector:
+    app: mysql
+  ports:
+  - port: 3306
+    name: mysql
+  clusterIP: None
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-read
+  labels:
+    app: mysql
+spec:
+  ports:
+  - name: mysql
+    port: 3306
+    targetPort: 3306
+    nodePort: 30007
+  selector:
+    app: mysql
+  type: NodePort
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-readwrite
+  labels:
+    app: mysql
+spec:
+  ports:
+  -  name: mysql
+     port: 3306
+     targetPort: 3306
+     nodePort: 30006
+  selector:
+    statefulset.kubernetes.io/pod-name: mysql-ss-0
+  type: NodePort 

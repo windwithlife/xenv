@@ -1,0 +1,15 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: ingress-cert-koudaibook
+spec:
+  dnsNames:
+    - www.koudaibook.com
+    - soagateway.koudaibook.com
+    - release.koudaibook.com
+    - console.koudaibook.com
+  secretName: ingress-secret-koudaibook
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer
+    

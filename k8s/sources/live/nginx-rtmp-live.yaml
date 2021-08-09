@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: live-deployment
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      k8s-app: k8s-nginx-live
+  replicas: 1
+  template:
+    metadata:
+      name: nginx-live-server
+      labels:
+        k8s-app: nginx-live
+    spec:
+      terminationGracePeriodSeconds: 60
+      nodeSelector:
+        resourceType: enough
+      containers:
+      - name: nginx-rtmp
+        image: alfg/nginx-rtmp
+        ports:
+        - name: rtmp
+          containerPort: 1395
+          protocol: TCP
+        - name: http
+          containerPort: 80
+          protocol: TCP
+        - name: https
+          protocol: TCP
+          containerPort: 443
+    
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-live
+  namespace: default
+  labels:
+    k8s-app: nginx-live
+spec:
+ 
+  ports:
+  - port: 1395
+    name: rtmp-live
+    targetPort: 1395
+  - port: 80
+    name: http
+    targetPort: 80
+  - port: 443
+    name: https
+    targetPort: 443
+  selector:
+    k8s-app: k8s-nginx-live

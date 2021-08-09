@@ -1,0 +1,18 @@
+# 下面的redis.conf中不能写注释，否则k8s解析时会当作配置文件的一部分，出错
+# dir /var/lib/redis使得持久化文件dump.rdb在容器的/var/lib/redis目录下
+# cluster-config-file /var/lib/nodes.conf使得集群信息在/var/lib/redis/nodes.conf文件中
+# /var/lib/redis目录会挂载pv，所以持久化文件和节点信息能保存下来
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: redis-configmap # configmap的名字，加上下面的demo-redis就是这个configmap在k8s集群中的唯一标识
+data:
+  # 这里可以创建多个文件
+  redis.conf: |
+    appendonly yes
+    protected-mode no
+    cluster-enabled yes          
+    cluster-config-file /var/lib/redis/nodes.conf 
+    cluster-node-timeout 5000    
+    dir /var/lib/redis        
+    port 6379

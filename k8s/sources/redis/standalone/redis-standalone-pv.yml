@@ -1,0 +1,28 @@
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: redis-standalone-pv
+spec:
+  capacity:
+    storage: 200G
+  accessModes:
+    - ReadWriteMany
+  storageClassName: nfsredis
+  nfs:
+    server: 172.19.64.72 # NFS服务器地址
+    path: "/data/k8sdata"  # NFS目录
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: redis-standalone-pvc
+spec:
+  volumeName: redis-standalone-pv
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 100Gi
+  storageClassName: nfsredis

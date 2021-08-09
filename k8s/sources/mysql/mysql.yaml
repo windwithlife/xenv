@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-mysql
+  labels:
+    k8s-app: k8s-mysql
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      k8s-app: k8s-mysql
+  replicas: 1
+  template:
+    metadata:
+      name: mysqld
+      labels:
+        k8s-app: k8s-mysql
+    spec:
+      terminationGracePeriodSeconds: 60
+      nodeSelector:
+        resourceType: enough
+      containers:
+      - name: mysql
+        image: windwithlife/xmysql:latest
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "Password!&"
+        - name: MYSQL_DATABASE
+          value: mydb
+        volumeMounts:                         # 容器内挂载点的定义部分
+         - name: time-zone                   # 容器内挂载点名称
+           mountPath: /etc/localtime         # 容器内挂载点路径，可以是文件或目录
+         - name: mysql-data
+           mountPath: /var/lib/mysql         # 容器内mysql的数据目录
+         - name: mysql-logs
+           mountPath: /var/log/mysql
+      volumes:                                  # 本地需要挂载到容器里的数据卷定义部分
+        - name: time-zone                       # 数据卷名称，需要与容器内挂载点名称一致
+          hostPath:
+            path: /etc/localtime                # 挂载到容器里的路径，将localtime文件挂载到容器里，可让容器使用本地的时区
+        - name: mysql-data
+          hostPath:
+            path: /data/mysql/data              # 本地存放mysql数据的目录
+        - name: mysql-logs
+          hostPath:
+            path: /data/mysql/logs
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+  namespace: default
+  labels:
+    k8s-app: db-mysql
+spec:
+  type: NodePort
+  ports:
+  - port: 3306
+    name: mysql
+    targetPort: 3306
+    nodePort: 30006
+  selector:
+    k8s-app: k8s-mysql

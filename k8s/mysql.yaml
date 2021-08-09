@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-mysql
+  labels:
+    k8s-app: k8s-mysql
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      k8s-app: k8s-mysql
+  replicas: 1
+  template:
+    metadata:
+      name: mysqld
+      labels:
+        k8s-app: k8s-mysql
+    spec:
+      terminationGracePeriodSeconds: 60
+      nodeSelector:
+        resourceType: enough
+      containers:
+      - name: mysql
+        image: windwithlife/xmysql:latest
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "Password!&"
+        - name: MYSQL_DATABASE
+          value: mydb
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+  namespace: default
+  labels:
+    k8s-app: db-mysql
+spec:
+  type: NodePort
+  ports:
+  - port: 3306
+    name: mysql
+    targetPort: 3306
+    nodePort: 30006
+  selector:
+    k8s-app: k8s-mysql

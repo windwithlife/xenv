@@ -1,0 +1,28 @@
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: simple-pv
+spec:
+  capacity:
+    storage: 100Gi
+  accessModes:
+    - ReadWriteMany
+  storageClassName: simplenfs
+  nfs:
+    server: 172.19.64.72 # NFS服务器地址
+    path: "/data/k8sdata"  # NFS目录
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: simple-pvc
+spec:
+  volumeName: simple-pv
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 100Gi
+  storageClassName: simplenfs
