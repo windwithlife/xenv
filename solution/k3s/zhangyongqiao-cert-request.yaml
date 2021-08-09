@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: traefik-cert-zhangyongqiao
+spec:
+  dnsNames:
+    - service.zhangyongqiao.com
+  secretName: ingress-secret-zhangyongqiao
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer
+    

@@ -1,11 +1,11 @@
 # Default values for demo.
 # This is a YAML-formatted file.
 
-secretName: ingress-secret-koudaibook
-
+secretName: ingress-secret-zhangyongqiao
+host: service.zhangyongqiao.com
 
 project:
-  host: api.zhangyongqiao.com
+  host: service.zhangyongqiao.com
   image: ccr.ccs.tencentyun.com/windwithlife/project
   app_name: project
   service:
