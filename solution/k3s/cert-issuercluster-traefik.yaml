@@ -1,0 +1,18 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt
+spec:
+  acme:
+    email: 379163259@qq.com
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: letsencrypt-issuer-account-key
+    solvers:
+    - http01:
+       ingress:
+         ingressTemplate:
+           metadata:
+             annotations:
+               kubernetes.io/ingress.class: traefik
+

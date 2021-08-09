@@ -1,0 +1,16 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: traefik-cert-koudaibook
+spec:
+  dnsNames:
+    - api.zhangyongqiao.com
+    - api.koudaibook.com
+    - service.koudaibook.com
+    - mobile.zhangyongqiao.com
+    - service.zhangyongqiao.com
+  secretName: ingress-secret-koudaibook
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer
+    
