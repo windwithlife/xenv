@@ -1,26 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{.app_name}}
+  name: deployment-{{.Values.project.app_name}}
   namespace: default
   labels:
-    app: app-{{.app_name}}
-    name: {{.app_name}}
+    app: app-{{.Values.project.app_name}}
+    name: {{.Values.project.app_name}}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: app-{{.app_name}}
-      name: {{.app_name}}
+      app: app-{{.Values.project.app_name}}
+      name: {{.Values.project.app_name}}
   template:
     metadata:
       labels:
-        app: app-{{.app_name}}
-        name: {{.app_name}}
+        app: app-{{.Values.project.app_name}}
+        name: {{.Values.project.app_name}}
     spec:
       containers:
-        - name: container-{{.app_name}}
-          image: {{.image_name}}:{{.build_tag}}
+        - name: container-{{.Values.project.app_name}}
+          image: {{.Values.project.image}}:latest
           ports:
             - containerPort: 80
               protocol: TCP
@@ -31,7 +31,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: service-{{.app_name}}
+  name: service-{{.Values.project.app_name}}
 spec:
   ports:
     - port: 80
@@ -39,30 +39,30 @@ spec:
       protocol: TCP
       name: http
   selector:
-    app: app-{{.app_name}}
+    app: app-{{.Values.project.app_name}}
 
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ingress-{{.app_name}}
+  name: ingress-{{.Values.project.app_name}}
   annotations:
     kubernetes.io/ingress.class: "traefik"
     cert-manager.io/cluster-issuer: letsencrypt
     
 spec:
   tls: 
-  - secretName: {{.soa_gateway_cert}}
+  - secretName: {{.Values.secretName}}
     hosts:
-    - {{.soa_gateway}}
+    - {{.Values.project.host}}
   rules:
-    - host: {{.soa_gateway}}
+    - host: {{.Values.project.host}}
       http:
         paths:
-          - path: /{{.app_name}}
+          - path: {{.Values.project.ingress.path}}
             pathType: Prefix
             backend:
               service:
-                name: service-{{.app_name}}
+                name: service-{{.Values.project.app_name}}
                 port:
                   number: 80
