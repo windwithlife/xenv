@@ -26,7 +26,7 @@ services:
     # 一个通过 API 暴露其 IP 地址的容器
     image: containous/whoami
     labels:
-      - "traefik.http.routers.whoami.rule=Host(`test.zhangyongqiao`)"
+      - "traefik.http.routers.whoami.rule=Host(`test.zhangyongqiao.com`)"
   # 使用mysql
   service_mysql:
     image: mysql
@@ -75,7 +75,7 @@ services:
     ports:
      - 18083:18083
      - 1883:1883
-     - 8080:8081
+     - 8081:8081
      - 8883:8883
     volumes:
      - ./emqx/logs:/opt/emqx/log
