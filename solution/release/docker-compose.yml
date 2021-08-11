@@ -29,6 +29,8 @@ services:
   reverse-proxy:
     # 官方的 Traefik 2.0 Docker 镜像
     image: traefik:v2.0
+    networks:
+      - dronenet
     # 开启 web UI 并且告诉 Traefik 监听 Docker
     command: --api.insecure=true --providers.docker
     ports:
@@ -42,11 +44,15 @@ services:
   whoami:
     # 一个通过 API 暴露其 IP 地址的容器
     image: containous/whoami
+    networks:
+      - dronenet
     labels:
-      - "traefik.http.routers.whoami.rule=Host(`test.zhangyongqiao`)"
+      - "traefik.http.routers.whoami.rule=Host(`whoami.zhangyongqiao.com`)"
   #gitea server
   gitea_server:
     image: ${GITEA_DOCKER_IMAGE}
+    labels:
+      - "traefik.http.routers.whoami.rule=Host(`git.zhangyongqiao.com`)"
     container_name: ${GITEA_SERVICE_DOMAIN}   
     ports:
       - ${GITEA_SSH_PORT_EXPOSE}:22
@@ -106,6 +112,8 @@ services:
   # drone 服务端
   drone_server:
     image: ${DRONE_DOCKER_IMAGE}
+    labels:
+      - "traefik.http.routers.whoami.rule=Host(`drone.zhangyongqiao.com`)"
     container_name: drone_server
     ports:
       - 8888:80 # drone comtainer serves via port 80, we expose to end users via port 8381
