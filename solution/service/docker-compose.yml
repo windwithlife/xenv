@@ -60,3 +60,24 @@ services:
       - ./data/redis:/data:rw
     command:
       /bin/bash -c "redis-server /usr/local/etc/redis/redis.conf "
+  #Emqx(mqtt-server)
+  emqx:
+    image: "harbocto.xxx.com.cn/public/emqx:4.2.3"
+    container_name: "emqx-4.2.3"
+    networks:
+      - service-network
+    environment:
+      - EMQX_LOADED_PLUGINS="emqx_management,emqx_auth_http,emqx_dashboard"
+      - EMQX_DASHBOARD__DEFAULT_USER__LOGIN=liubei
+      - EMQX_DASHBOARD__DEFAULT_USER__PASSWORD=liubei@2021
+      - EMQX_NODE__MAX_PORTS=65535
+      - EMQX_MQTT__MAX_PACKET_SIZE=16MB
+    ports:
+     - 18083:18083
+     - 1883:1883
+     - 8080:8081
+     - 8883:8883
+    volumes:
+     - ./emqx/logs:/opt/emqx/log
+     - /etc/localtime:/etc/localtime
+    restart: always
