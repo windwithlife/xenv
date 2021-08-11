@@ -4,7 +4,7 @@ metadata:
   name: traefik-cert-koudaibook
 spec:
   dnsNames:
-    - api.zhangyongqiao.com
+    - api.koudaibook.com
   secretName: ingress-secret-default
   issuerRef:
     name: letsencrypt
