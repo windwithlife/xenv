@@ -8,28 +8,34 @@ networks:
 #     name: portainerdata
 
 services:
-  # 使用caddy做反向代理
-  # 使用nginx做反向代理
-  nginx:
-    image: nginx:alpine
-    container_name: nginx
-    ports:
-      - "80:80"
-      - "443:443"
-    restart: always
+  
+  reverse-proxy:
+    # 官方的 Traefik 2.0 Docker 镜像
+    image: traefik:v2.0
     networks:
       - dronenet
-    depends_on:
-     - gitea_server
+    # 开启 web UI 并且告诉 Traefik 监听 Docker
+    command: --api.insecure=true --providers.docker
+    ports:
+      # HTTP 端口
+      - "80:80"
+      # Web UI 端口(通过 --api.insecure=true 启用)
+      - "8080:8080"
     volumes:
-      - ./nginx/conf:/etc/nginx/conf.d:rw
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./nginx/log/:/var/log/nginx/:rw
-
-
+      # 这样 Traefik 可以监听 Docker 事件
+      - /var/run/docker.sock:/var/run/docker.sock
+  whoami:
+    # 一个通过 API 暴露其 IP 地址的容器
+    image: containous/whoami
+    networks:
+      - dronenet
+    labels:
+      - "traefik.http.routers.whoami.rule=Host(`whoami.zhangyongqiao.com`)"
   #gitea server
   gitea_server:
     image: ${GITEA_DOCKER_IMAGE}
+    labels:
+      - "traefik.http.routers.whoami.rule=Host(`git.zhangyongqiao.com`)"
     container_name: ${GITEA_SERVICE_DOMAIN}   
     ports:
       - ${GITEA_SSH_PORT_EXPOSE}:22
@@ -44,15 +50,10 @@ services:
       - SSH_PORT=22
       - SSH_LISTEN_PORT=22
       - HTTP_PORT=3000
-      - ROOT_URL=http://${GITEA_SERVICE_DOMAIN}:3000
+      - ROOT_URL=http://${GITEA_SERVICE_DOMAIN}
       - LFS_START_SERVER=true
       - REQUIRE_SIGNIN_VIEW=true
-      - DB_TYPE=mysql  
-      - DB_HOST=drone_mysql:3306  
-      - DB_NAME=${MYSQL_DATABASE}
-      - DB_USER=root  
-      - DB_PASSWD=${MYSQL_ROOT_PASSWORD}  
-      - TZ=Asia/Shanghai
+      - DB_TYPE=sqlite3 
       - INSTALL_LOCK=false
       - DISABLE_GRAVATAR=true
     networks:
@@ -77,8 +78,8 @@ services:
     image: mysql
     restart: always
     container_name: drone_mysql
-    # ports:
-    #   - 3306:3306
+    ports:
+      - 3306:3306
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
@@ -94,6 +95,8 @@ services:
   # drone 服务端
   drone_server:
     image: ${DRONE_DOCKER_IMAGE}
+    labels:
+      - "traefik.http.routers.whoami.rule=Host(`drone.zhangyongqiao.com`)"
     container_name: drone_server
     ports:
       - 8888:80 # drone comtainer serves via port 80, we expose to end users via port 8381
@@ -115,13 +118,14 @@ services:
 
       # gitea Config
       # - DRONE_AGENTS_ENABLED=true
-      - DRONE_GITEA_SERVER=http://${GITEA_SERVICE_DOMAIN}:3000 # this is internal communication with gitea server on the same network
+      - DRONE_GITEA_SERVER=${GIT_SERVER} # this is internal communication with gitea server on the same network
       - DRONE_GITEA_CLIENT_ID=${DRONE_GITEA_CLIENT_ID}
       - DRONE_GITEA_CLIENT_SECRET=${DRONE_GITEA_CLIENT_SECRET}
       - DRONE_RPC_SECRET=${DRONE_RPC_SECRET} #RPC秘钥
       - DRONE_SERVER_HOST=${DRONE_HOST}
       - DRONE_SERVER_PROTO=http
       - DRONE_RUNNER_CAPACITY=2
+      - DRONE_GIT_ALWAYS_AUTH=true
       - DRONE_USER_CREATE=username:${DRONE_ADMIN_USERNAME},admin:true #管理员账号，是你想要作为管理员的Gitea用户名
       # droneclient Config
 
@@ -139,10 +143,13 @@ services:
 
   drone-runner:
     image: ${DRONE_RUNNER_DOCKER_IMAGE}
+    labels:
+      - "traefik.http.routers.dronerunner.rule=Host(`drone.zhangyongqiao.com`)"
     container_name: drone_runner
     expose:
       - 3000
     environment:
+      - DRONE_GIT_ALWAYS_AUTH=true
       - DRONE_RPC_PROTO=http
       - DRONE_RPC_HOST=${DRONE_HOST}
       - DRONE_RPC_SECRET=${DRONE_RPC_SECRET}
@@ -151,6 +158,7 @@ services:
       - dronenet
     depends_on:
       - drone_server
+      - drone_mysql
     restart: always
     volumes:
       # 标准 Linux 系统下使用
@@ -165,7 +173,7 @@ services:
     #extra_hosts:
     #  - "${SERVICE_DOMAIN}:127.0.0.1"
 
-
+  
   docker-repo:
     image: ${DOCKER_REPO_DOCKER_IMAGE}
     container_name: docker_registry
@@ -189,7 +197,41 @@ services:
         max-size: "50m"
     #extra_hosts:
     #  - "${SERVICE_DOMAIN}:127.0.0.1"
- 
+  # Redis服务
+  service_redis:
+    image: redis:latest
+    container_name: redis_service
+    restart: always
+    ports:
+      - 6379:6379
+    networks:
+      - dronenet
+    volumes:
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf:rw
+      - ./data/redis:/data:rw
+    command:
+      /bin/bash -c "redis-server /usr/local/etc/redis/redis.conf "
+  #Emqx(mqtt-server)
+  emqx:
+    image: "emqx/emqx"
+    container_name: "emqx-latest"
+    networks:
+      - dronenet
+    environment:
+      - EMQX_LOADED_PLUGINS="emqx_management,emqx_auth_http,emqx_dashboard"
+      - EMQX_DASHBOARD__DEFAULT_USER__LOGIN=admin
+      - EMQX_DASHBOARD__DEFAULT_USER__PASSWORD=public
+      - EMQX_NODE__MAX_PORTS=65535
+      - EMQX_MQTT__MAX_PACKET_SIZE=16MB
+    ports:
+     - 18083:18083
+     - 1883:1883
+     - 8081:8081
+     - 8883:8883
+    volumes:
+     - ./emqx/logs:/opt/emqx/log
+     - /etc/localtime:/etc/localtime
+    restart: always
   # docker 可视化管理
   # portainer:
   #   image: portainer/portainer:latest
