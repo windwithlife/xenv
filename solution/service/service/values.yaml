@@ -19,14 +19,6 @@ mysql:
     port: 80
   ingress:
     path: /mysql
-account:
-  host: service.zhangyongqiao.com
-  image: ccr.ccs.tencentyun.com/windwithlife/account
-  app_name: account
-  service:
-    port: 80
-  ingress:
-    path: /account    
     
     
    

@@ -5,7 +5,7 @@ metadata:
 spec:
   dnsNames:
     - api.zhangyongqiao.com
-  secretName: ingress-secret-koudaibook
+  secretName: ingress-secret-default
   issuerRef:
     name: letsencrypt
     kind: ClusterIssuer

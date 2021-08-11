@@ -1,7 +1,7 @@
 # Default values for demo.
 # This is a YAML-formatted file.
 
-secretName: ingress-secret-zhangyongqiao
+secretName: ingress-secret-default
 host: service.zhangyongqiao.com
 
 project:
@@ -13,7 +13,27 @@ project:
   ingress:
     path: /project
     
-    
-   
-      
+account:
+  image: ccr.ccs.tencentyun.com/windwithlife/accountcenter
+  app_name: account
+  service:
+    port: 80
+  ingress:
+    path: /simple-account  
+
+connection:
+  image: ccr.ccs.tencentyun.com/windwithlife/connection-service
+  app_name: connection
+  service:
+    port: 80
+  ingress:
+    path: /connection-service
+
+common:
+  image: ccr.ccs.tencentyun.com/windwithlife/common-service
+  app_name: common-server
+  service:
+    port: 80
+  ingress:
+    path: /common-service
    

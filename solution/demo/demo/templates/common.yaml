@@ -1,25 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deployment-{{.Values.project.app_name}}
+  name: deployment-{{.Values.common.app_name}}
   namespace: default
   labels:
-    app: app-{{.Values.project.app_name}}
-    name: {{.Values.project.app_name}}
+    app: app-{{.Values.common.app_name}}
+    name: {{.Values.common.app_name}}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: app-{{.Values.project.app_name}}
-      name: {{.Values.project.app_name}}
+      app: app-{{.Values.common.app_name}}
+      name: {{.Values.common.app_name}}
   template:
     metadata:
       labels:
-        app: app-{{.Values.project.app_name}}
-        name: {{.Values.project.app_name}}
+        app: app-{{.Values.common.app_name}}
+        name: {{.Values.common.app_name}}
     spec:
       containers:
-        - name: container-{{.Values.project.app_name}}
+        - name: container-{{.Values.common.app_name}}
           image: {{.Values.project.image}}:latest
           ports:
             - containerPort: 80
@@ -31,7 +31,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: service-{{.Values.project.app_name}}
+  name: service-{{.Values.common.app_name}}
 spec:
   ports:
     - port: 80
@@ -39,13 +39,13 @@ spec:
       protocol: TCP
       name: http
   selector:
-    app: app-{{.Values.project.app_name}}
+    app: app-{{.Values.common.app_name}}
 
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ingress-{{.Values.project.app_name}}
+  name: ingress-{{.Values.common.app_name}}
   annotations:
     kubernetes.io/ingress.class: "traefik"
     cert-manager.io/cluster-issuer: letsencrypt
@@ -59,10 +59,10 @@ spec:
     - host: {{.Values.host}}
       http:
         paths:
-          - path: {{.Values.project.ingress.path}}
+          - path: {{.Values.common.ingress.path}}
             pathType: Prefix
             backend:
               service:
-                name: service-{{.Values.project.app_name}}
+                name: service-{{.Values.common.app_name}}
                 port:
                   number: 80
