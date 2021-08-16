@@ -7,6 +7,6 @@ spec:
     - service.zhangyongqiao.com
   secretName: ingress-secret-zhangyongqiao
   issuerRef:
-    name: letsencrypt
+    name: letsencrypt-staging
     kind: ClusterIssuer
     
