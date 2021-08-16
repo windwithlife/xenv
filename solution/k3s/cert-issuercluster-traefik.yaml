@@ -7,7 +7,7 @@ spec:
     email: 379163259@qq.com
     server: https://acme-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
-      name: letsencrypt- prod
+      name: letsencrypt-prod
     solvers:
     - http01:
        ingress:
