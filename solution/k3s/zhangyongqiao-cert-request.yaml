@@ -4,8 +4,8 @@ metadata:
   name: traefik-cert-zhangyongqiao
 spec:
   dnsNames:
-    - service.zhangyongqiao.com
-  secretName: ingress-secret-zhangyongqiao
+    - api.zhangyongqiao.com
+  secretName: auto-secret
   issuerRef:
     name: letsencrypt-staging
     kind: ClusterIssuer
