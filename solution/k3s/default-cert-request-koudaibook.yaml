@@ -7,7 +7,7 @@ spec:
     - api.koudaibook.com
   secretName: api-default-secret
   issuerRef:
-    name: letsencrypt
+    name: letsencrypt-prod
     kind: ClusterIssuer
     
 ---
@@ -20,7 +20,7 @@ spec:
     - admin.koudaibook.com
   secretName: admin-default-secret
   issuerRef:
-    name: letsencrypt
+    name: letsencrypt-prod
     kind: ClusterIssuer
 
 ---
@@ -33,5 +33,5 @@ spec:
     - www.koudaibook.com
   secretName: www-default-secret
   issuerRef:
-    name: letsencrypt
+    name: letsencrypt-prod
     kind: ClusterIssuer

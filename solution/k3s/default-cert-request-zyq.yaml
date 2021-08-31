@@ -7,7 +7,7 @@ spec:
     - api.zhangyongqiao.com
   secretName: api-default-secret
   issuerRef:
-    name: letsencrypt
+    name: letsencrypt-prod
     kind: ClusterIssuer
     
 ---
@@ -20,7 +20,7 @@ spec:
     - admin.zhangyongqiao.com
   secretName: admin-default-secret
   issuerRef:
-    name: letsencrypt
+    name: letsencrypt-prod
     kind: ClusterIssuer
 
 ---
@@ -33,5 +33,5 @@ spec:
     - www.zhangyongqiao.com
   secretName: www-default-secret
   issuerRef:
-    name: letsencrypt
+    name: letsencrypt-prod
     kind: ClusterIssuer
