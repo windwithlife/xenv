@@ -24,13 +24,13 @@ kubectl apply -f ./cert-manager.yaml
 #配置证书 provider---clusterissuer
 kubectl apply -f ./cert-clusterissuer-traefik.yaml
 #申请一个lets encrypt 证书
-#kubectl apply -f ./default-cert.request.yaml 
+#kubectl apply -f ./default-cert-request-zyq.yaml 
 
 #临时打开traefik 的 Dashboard
  #kubectl port-forward deploy/traefik 9000:9000 --address='0.0.0.0' -n kube-system
 
  #安装helm push 
-
+ #helm plugin install https://github.com/chartmuseum/helm-pus
 
 
 
