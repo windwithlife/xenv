@@ -1,0 +1,37 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: api-default-cert
+spec:
+  dnsNames:
+    - api.zhangyongqiao.com
+  secretName: api-default-secret
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer
+    
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: admin-default-cert
+spec:
+  dnsNames:
+    - admin.zhangyongqiao.com
+  secretName: admin-default-secret
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: www-default-cert
+spec:
+  dnsNames:
+    - www.zhangyongqiao.com
+  secretName: www-default-secret
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer
