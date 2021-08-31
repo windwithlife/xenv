@@ -22,7 +22,7 @@ export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
 wget https://github.com/jetstack/cert-manager/releases/download/v1.0.3/cert-manager.yaml
 kubectl apply -f ./cert-manager.yaml
 #配置证书 provider---clusterissuer
-kubectl apply -f ./cert-issuecluster-traefik.yaml
+kubectl apply -f ./cert-clusterissuer-traefik.yaml
 #申请一个lets encrypt 证书
 #kubectl apply -f ./default-cert.request.yaml 
 
@@ -30,6 +30,7 @@ kubectl apply -f ./cert-issuecluster-traefik.yaml
  #kubectl port-forward deploy/traefik 9000:9000 --address='0.0.0.0' -n kube-system
 
  #安装helm push 
-helm plugin install https://github.com/chartmuseum/helm-pus
+
+
 
 
