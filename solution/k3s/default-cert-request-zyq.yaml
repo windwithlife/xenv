@@ -45,7 +45,7 @@ metadata:
 spec:
   dnsNames:
     - traefik.zhangyongqiao.com
-  secretName: www-default-secret
+  secretName: traefik-default-secret
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
