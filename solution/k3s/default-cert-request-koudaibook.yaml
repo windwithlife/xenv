@@ -35,3 +35,17 @@ spec:
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
+
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: gateway-default-cert
+spec:
+  dnsNames:
+    - traefik.koudaibook.com
+  secretName: gateway-default-secret
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
