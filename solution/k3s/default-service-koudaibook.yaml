@@ -74,10 +74,9 @@ metadata:
   name: ingress-traefik
   annotations:
     kubernetes.io/ingress.class: traefik
-    # traefik.ingress.kubernetes.io/rule-type: Path
 spec:
   tls:
-  - secretName: gateway-default-secret.default
+  - secretName: traefik-default-secret
     hosts:
     - traefik.koudaibook.com
   rules:
