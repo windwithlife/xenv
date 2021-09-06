@@ -36,6 +36,18 @@ spec:
     name: letsencrypt-prod
     kind: ClusterIssuer
 
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: m-default-cert
+spec:
+  dnsNames:
+    - m.xkoudai.com
+  secretName: m-default-secret
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
 
 ---
 apiVersion: cert-manager.io/v1
