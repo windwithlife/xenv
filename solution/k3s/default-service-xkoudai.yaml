@@ -37,7 +37,7 @@ metadata:
   name: ingress-whoami
 spec:
   rules:
-    - host: api.koudaibook.com
+    - host: api.xkoudai.com
       http:
         paths:
           - path: /whoami
@@ -77,7 +77,7 @@ metadata:
     # traefik.ingress.kubernetes.io/rule-type: Path
 spec:
   tls:
-  - secretName: gateway-default-secret.default
+  - secretName: traefik-default-secret
     hosts:
     - traefik.xkoudai.com
   rules:
