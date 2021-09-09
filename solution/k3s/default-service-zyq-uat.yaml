@@ -77,11 +77,11 @@ metadata:
     # traefik.ingress.kubernetes.io/rule-type: Path
 spec:
   tls:
-  - secretName: traefik-default-secret
+  - secretName: uat-traefik-default-secret
     hosts:
-    - traefik.xkoudai.com
+    - uat-traefik.zhangyongqiao.com
   rules:
-    - host: traefik.xkoudai.com
+    - host: uat.traefik.zhangyongqiao.com
       http:
         paths:
           - path: /
