@@ -1,0 +1,64 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: uat-api-default-cert
+spec:
+  dnsNames:
+    - uat.api.zhangyongqiao.com
+  secretName: uat-api-default-secret
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+    
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: uat-admin-default-cert
+spec:
+  dnsNames:
+    - uat.admin.zhangyongqiao.com
+  secretName: uat-admin-default-secret
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: uat-www-default-cert
+spec:
+  dnsNames:
+    - uat.www.zhangyongqiao.com
+  secretName: uat-www-default-secret
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: uat-m-default-cert
+spec:
+  dnsNames:
+    - uat.m.zhangyongqiao.com
+  secretName: uat-m-default-secret
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  namespace: kube-system
+  name: uat-traefik-default-cert
+spec:
+  dnsNames:
+    - uat.traefik.zhangyongqiao.com
+  secretName: uat-traefik-default-secret
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
