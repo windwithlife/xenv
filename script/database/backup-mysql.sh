@@ -7,11 +7,14 @@ username=root
 password=root_password
 #将要备份的数据库
 database_name=test
+#备份保存路径
+backup_path=~/backup/mysql
+backup_filename=$backup_path/latest.sql;
+backup_text_filename=$backup_path/latest.txt;
  
 #保存备份文件最多个数
 count=20
-#备份保存路径
-backup_path=~/backup/mysql
+
 #日期
 date_time=`date +%Y-%m-%d-%H-%M`
  
@@ -24,18 +27,21 @@ fi
 if [ -z "$1" ];
 then
   database_name=--all-databases;
+  backup_filename=$backup_path/all-$date_time;
+  
 else
   database_name=$1;
+  backup_filename=$backup_path/$database_name-$date_time;
 fi
 #mysqldump -u $username -p$password --master-data=2 --default-character-set=utf8 --single-transaction --all-databases  > $backup_path/$database_name-$date_time.sql
-mysqldump -h$host -u $username -p$password --master-data=2 --default-character-set=utf8 --single-transaction $database_name > $backup_path/$database_name-$date_time.sql
+mysqldump -h$host -u $username -p$password --master-data=2 --default-character-set=utf8 --single-transaction $database_name > $backup_filename.sql
 #开始压缩
 cd $backup_path
-tar -zcvf $database_name-$date_time.tar.gz $database_name-$date_time.sql
+tar -zcvf $backup_filename.tar.gz $backup_filename.sql
 #删除源文件
-rm -rf $backup_path/$database_name-$date_time.sql
+rm -rf $backup_filename.sql
 #更新备份日志
-echo "create $backup_path/$database_name-$date_time.tar.gz" >> $backup_path/dump.log
+echo "create $backup_filename.sql.tar.gz" >> $backup_path/dump.log
  
 #找出需要删除的备份
 delfile=`ls -l -crt $backup_path/*.tar.gz | awk '{print $9 }' | head -1`
