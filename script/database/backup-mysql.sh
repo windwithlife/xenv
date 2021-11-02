@@ -34,7 +34,8 @@ else
   backup_filename=$backup_path/$database_name-$date_time;
 fi
 #mysqldump -u $username -p$password --master-data=2 --default-character-set=utf8 --single-transaction --all-databases  > $backup_path/$database_name-$date_time.sql
-mysqldump -h$host -u $username -p$password --master-data=2 --default-character-set=utf8 --single-transaction $database_name > $backup_filename.sql
+echo $backup_filename $database_name
+mysqldump -h$host -u $username -p$password --single-transaction $database_name > $backup_filename.sql
 #开始压缩
 cd $backup_path
 tar -zcvf $backup_filename.tar.gz $backup_filename.sql
