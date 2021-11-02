@@ -1,5 +1,6 @@
 #/bin/bash
-
+#host
+host=db.zhangyongqiao.com
 #用户名
 username=root
 #密码
@@ -20,7 +21,14 @@ then
  mkdir -p $backup_path; 
 fi
 #开始备份
-mysqldump -u $username -p$password $database_name > $backup_path/$database_name-$date_time.sql
+if [ -z "$1" ];
+then
+  database_name=--all-databases;
+else
+  database_name=$1;
+fi
+#mysqldump -u $username -p$password --master-data=2 --default-character-set=utf8 --single-transaction --all-databases  > $backup_path/$database_name-$date_time.sql
+mysqldump -h$host -u $username -p$password --master-data=2 --default-character-set=utf8 --single-transaction $database_name > $backup_path/$database_name-$date_time.sql
 #开始压缩
 cd $backup_path
 tar -zcvf $database_name-$date_time.tar.gz $database_name-$date_time.sql
