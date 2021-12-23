@@ -46,7 +46,7 @@ echo "create $backup_filename.sql.tar.gz" >> $backup_path/dump.log
  
 #找出需要删除的备份
 delfile=`ls -l -crt $backup_path/*.tar.gz | awk '{print $9 }' | head -1`
- 
+                                                                                    
 #判断现在的备份数量是否大于阈值
 number=`ls -l -crt $backup_path/*.tar.gz | awk '{print $9 }' | wc -l`
  

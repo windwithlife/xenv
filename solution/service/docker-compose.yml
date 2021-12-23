@@ -22,9 +22,13 @@ services:
     volumes:
       # 这样 Traefik 可以监听 Docker 事件
       - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - service-network
   whoami:
     # 一个通过 API 暴露其 IP 地址的容器
     image: containous/whoami
+    networks:
+      - service-network
     labels:
       - "traefik.http.routers.whoami.rule=Host(`test.zhangyongqiao.com`)"
   # 使用mysql
