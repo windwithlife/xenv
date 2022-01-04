@@ -1,0 +1,64 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: api-default-cert
+spec:
+  dnsNames:
+    - api.koudaibook.com
+  secretName: api-default-secret
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+    
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: admin-default-cert
+spec:
+  dnsNames:
+    - admin.koudaibook.com
+  secretName: admin-default-secret
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: www-default-cert
+spec:
+  dnsNames:
+    - www.koudaibook.com
+  secretName: www-default-secret
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: m-default-cert
+spec:
+  dnsNames:
+    - m.koudaibook.com
+  secretName: m-default-secret
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  namespace: kube-system
+  name: traefik-default-cert
+spec:
+  dnsNames:
+    - traefik.koudaibook.com
+  secretName: traefik-default-secret
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
