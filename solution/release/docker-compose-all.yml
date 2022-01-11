@@ -9,28 +9,7 @@ networks:
 
 services:
   
-  reverse-proxy:
-    # 官方的 Traefik 2.0 Docker 镜像
-    image: traefik:v2.0
-    networks:
-      - dronenet
-    # 开启 web UI 并且告诉 Traefik 监听 Docker
-    command: --api.insecure=true --providers.docker
-    ports:
-      # HTTP 端口
-      - "80:80"
-      # Web UI 端口(通过 --api.insecure=true 启用)
-      - "8080:8080"
-    volumes:
-      # 这样 Traefik 可以监听 Docker 事件
-      - /var/run/docker.sock:/var/run/docker.sock
-  whoami:
-    # 一个通过 API 暴露其 IP 地址的容器
-    image: containous/whoami
-    networks:
-      - dronenet
-    labels:
-      - "traefik.http.routers.whoami.rule=Host(`whoami.zhangyongqiao.com`)"
+  
   #gitea server
   gitea_server:
     image: ${GITEA_DOCKER_IMAGE}
@@ -63,8 +42,8 @@ services:
       # 标准 Linux 系统下使用
       # - /etc/localtime:/etc/localtime:ro
       # - /etc/timezone:/etc/timezone:ro
-      - ./data/gitea_server/repositories:/data/git/repositories
-      - ./data/gitea_server/data:/data/gitea/
+      - ~/data/gitea_server/repositories:/data/git/repositories
+      - ~/data/gitea_server/data:/data/gitea/
     logging:
       driver: "json-file"
       options:
@@ -89,8 +68,8 @@ services:
       dronenet:
     volumes:
       - ./drone_mysql/conf/my.cnf:/etc/mysql/my.cnf:rw
-      - ./data/drone_mysql/data:/var/lib/mysql/:rw
-      - ./data/drone_mysql/logs:/var/log/mysql/:rw
+      - ~/data/drone_mysql/data:/var/lib/mysql/:rw
+      - ~/data/drone_mysql/logs:/var/log/mysql/:rw
 
   # drone 服务端
   drone_server:
@@ -102,8 +81,8 @@ services:
       - 8888:80 # drone comtainer serves via port 80, we expose to end users via port 8381
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./data/drone_server/data:/data:rw
-      - ./data/drone_server/drone:/var/lib/drone:rw
+      - ~/data/drone_server/data:/data:rw
+      - ~/data/drone_server/drone:/var/lib/drone:rw
     logging:
       driver: "json-file"
       options:
@@ -165,7 +144,7 @@ services:
       # - /etc/localtime:/etc/localtime:ro
       # - /etc/timezone:/etc/timezone:ro
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./data/drone_runner:/data
+      - ~/data/drone_runner:/data
     logging:
       driver: "json-file"
       options:
@@ -173,30 +152,6 @@ services:
     #extra_hosts:
     #  - "${SERVICE_DOMAIN}:127.0.0.1"
 
-  
-  docker-repo:
-    image: ${DOCKER_REPO_DOCKER_IMAGE}
-    container_name: docker_registry
-    ports:
-      - 5000:5000
-    environment:
-      - DRONE_RPC_PROTO=http
-    networks:
-      - dronenet
-    depends_on:
-      - drone_server
-    restart: always
-    volumes:
-      # 标准 Linux 系统下使用
-      # - /etc/localtime:/etc/localtime:ro
-      # - /etc/timezone:/etc/timezone:ro
-      - /data/docker/registry:/var/lib/registry
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "50m"
-    #extra_hosts:
-    #  - "${SERVICE_DOMAIN}:127.0.0.1"
   # Redis服务
   service_redis:
     image: redis:latest
@@ -211,34 +166,29 @@ services:
       - ./data/redis:/data:rw
     command:
       /bin/bash -c "redis-server /usr/local/etc/redis/redis.conf "
-  #Emqx(mqtt-server)
-  emqx:
-    image: "emqx/emqx"
-    container_name: "emqx-latest"
-    networks:
-      - dronenet
-    environment:
-      - EMQX_LOADED_PLUGINS="emqx_management,emqx_auth_http,emqx_dashboard"
-      - EMQX_DASHBOARD__DEFAULT_USER__LOGIN=admin
-      - EMQX_DASHBOARD__DEFAULT_USER__PASSWORD=public
-      - EMQX_NODE__MAX_PORTS=65535
-      - EMQX_MQTT__MAX_PACKET_SIZE=16MB
-    ports:
-     - 18083:18083
-     - 1883:1883
-     - 8081:8081
-     - 8883:8883
-    volumes:
-     - ./emqx/logs:/opt/emqx/log
-     - /etc/localtime:/etc/localtime
-    restart: always
-  # docker 可视化管理
-  # portainer:
-  #   image: portainer/portainer:latest
-  #   container_name: portainer
-  #   restart: always
+  
+
+  
+  # docker-repo:
+  #   image: ${DOCKER_REPO_DOCKER_IMAGE}
+  #   container_name: docker_registry
   #   ports:
-  #     - 9910:9000
+  #     - 5000:5000
+  #   environment:
+  #     - DRONE_RPC_PROTO=http
+  #   networks:
+  #     - dronenet
+  #   depends_on:
+  #     - drone_server
+  #   restart: always
   #   volumes:
-  #     - /var/run/docker.sock:/var/run/docker.sock
-  #     - portainerdata:/data
+  #     # 标准 Linux 系统下使用
+  #     # - /etc/localtime:/etc/localtime:ro
+  #     # - /etc/timezone:/etc/timezone:ro
+  #     - /data/docker/registry:/var/lib/registry
+  #   logging:
+  #     driver: "json-file"
+  #     options:
+  #       max-size: "50m"
+  #   #extra_hosts:
+  #   #  - "${SERVICE_DOMAIN}:127.0.0.1"

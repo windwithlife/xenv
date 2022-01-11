@@ -3,9 +3,6 @@ version: "3.7"
 networks:
   service-network:
     name: service-network
-# volumes:
-#   portainerdata:
-#     name: portainerdata
 
 services:
 
