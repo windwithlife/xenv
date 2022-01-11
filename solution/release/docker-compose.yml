@@ -41,8 +41,8 @@ services:
       # 标准 Linux 系统下使用
       # - /etc/localtime:/etc/localtime:ro
       # - /etc/timezone:/etc/timezone:ro
-      - ./data/gitea_server/repositories:/data/git/repositories
-      - ./data/gitea_server/data:/data/gitea/
+      - ~/data/gitea_server/repositories:/data/git/repositories
+      - ~/data/gitea_server/data:/data/gitea/
     logging:
       driver: "json-file"
       options:
@@ -66,9 +66,9 @@ services:
     networks:
       dronenet:
     volumes:
-      - ./drone_mysql/conf/my.cnf:/etc/mysql/my.cnf:rw
-      - ./data/drone_mysql/data:/var/lib/mysql/:rw
-      - ./data/drone_mysql/logs:/var/log/mysql/:rw
+      - ~/drone_mysql/conf/my.cnf:/etc/mysql/my.cnf:rw
+      - ~/data/drone_mysql/data:/var/lib/mysql/:rw
+      - ~/data/drone_mysql/logs:/var/log/mysql/:rw
 
   # drone 服务端
   drone_server:
@@ -143,7 +143,7 @@ services:
       # - /etc/localtime:/etc/localtime:ro
       # - /etc/timezone:/etc/timezone:ro
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./data/drone_runner:/data
+      - ~/data/drone_runner:/data
     logging:
       driver: "json-file"
       options:
