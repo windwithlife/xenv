@@ -66,7 +66,7 @@ services:
     networks:
       dronenet:
     volumes:
-      - ~/drone_mysql/conf/my.cnf:/etc/mysql/my.cnf:rw
+      - ./drone_mysql/conf/my.cnf:/etc/mysql/my.cnf:rw
       - ~/data/drone_mysql/data:/var/lib/mysql/:rw
       - ~/data/drone_mysql/logs:/var/log/mysql/:rw
 
@@ -80,8 +80,8 @@ services:
       - 8888:80 # drone comtainer serves via port 80, we expose to end users via port 8381
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./data/drone_server/data:/data:rw
-      - ./data/drone_server/drone:/var/lib/drone:rw
+      - ~/data/drone_server/data:/data:rw
+      - ~/data/drone_server/drone:/var/lib/drone:rw
     logging:
       driver: "json-file"
       options:
