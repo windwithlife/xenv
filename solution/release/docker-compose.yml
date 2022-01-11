@@ -8,29 +8,7 @@ networks:
 #     name: portainerdata
 
 services:
-  
-  reverse-proxy:
-    # 官方的 Traefik 2.0 Docker 镜像
-    image: traefik:v2.0
-    networks:
-      - dronenet
-    # 开启 web UI 并且告诉 Traefik 监听 Docker
-    command: --api.insecure=true --providers.docker
-    ports:
-      # HTTP 端口
-      - "80:80"
-      # Web UI 端口(通过 --api.insecure=true 启用)
-      - "8080:8080"
-    volumes:
-      # 这样 Traefik 可以监听 Docker 事件
-      - /var/run/docker.sock:/var/run/docker.sock
-  whoami:
-    # 一个通过 API 暴露其 IP 地址的容器
-    image: containous/whoami
-    networks:
-      - dronenet
-    labels:
-      - "traefik.http.routers.whoami.rule=Host(`whoami.zhangyongqiao.com`)"
+ 
   #gitea server
   gitea_server:
     image: ${GITEA_DOCKER_IMAGE}
@@ -174,29 +152,29 @@ services:
     #  - "${SERVICE_DOMAIN}:127.0.0.1"
 
 
-  docker-repo:
-    image: ${DOCKER_REPO_DOCKER_IMAGE}
-    container_name: docker_registry
-    ports:
-      - 5000:5000
-    environment:
-      - DRONE_RPC_PROTO=http
-    networks:
-      - dronenet
-    depends_on:
-      - drone_server
-    restart: always
-    volumes:
-      # 标准 Linux 系统下使用
-      # - /etc/localtime:/etc/localtime:ro
-      # - /etc/timezone:/etc/timezone:ro
-      - /data/docker/registry:/var/lib/registry
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "50m"
-    #extra_hosts:
-    #  - "${SERVICE_DOMAIN}:127.0.0.1"
+  # docker-repo:
+  #   image: ${DOCKER_REPO_DOCKER_IMAGE}
+  #   container_name: docker_registry
+  #   ports:
+  #     - 5000:5000
+  #   environment:
+  #     - DRONE_RPC_PROTO=http
+  #   networks:
+  #     - dronenet
+  #   depends_on:
+  #     - drone_server
+  #   restart: always
+  #   volumes:
+  #     # 标准 Linux 系统下使用
+  #     # - /etc/localtime:/etc/localtime:ro
+  #     # - /etc/timezone:/etc/timezone:ro
+  #     - /data/docker/registry:/var/lib/registry
+  #   logging:
+  #     driver: "json-file"
+  #     options:
+  #       max-size: "50m"
+  #   #extra_hosts:
+  #   #  - "${SERVICE_DOMAIN}:127.0.0.1"
  
   # docker 可视化管理
   # portainer:
