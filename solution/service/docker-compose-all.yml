@@ -6,21 +6,21 @@ networks:
 
 services:
 
-  # reverse-proxy:
-  #   # 官方的 Traefik 2.0 Docker 镜像
-  #   image: traefik:v2.0
-  #   # 开启 web UI 并且告诉 Traefik 监听 Docker
-  #   command: --api.insecure=true --providers.docker
-  #   ports:
-  #     # HTTP 端口
-  #     - "9999:80"
-  #     # Web UI 端口(通过 --api.insecure=true 启用)
-  #     - "8080:8080"
-  #   volumes:
-  #     # 这样 Traefik 可以监听 Docker 事件
-  #     - /var/run/docker.sock:/var/run/docker.sock
-  #   networks:
-  #     - service-network
+  reverse-proxy:
+    # 官方的 Traefik 2.0 Docker 镜像
+    image: traefik:v2.0
+    # 开启 web UI 并且告诉 Traefik 监听 Docker
+    command: --api.insecure=true --providers.docker
+    ports:
+      # HTTP 端口
+      - "9999:80"
+      # Web UI 端口(通过 --api.insecure=true 启用)
+      - "8080:8080"
+    volumes:
+      # 这样 Traefik 可以监听 Docker 事件
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - service-network
   # 使用mysql
   service_mysql:
     image: mysql
@@ -37,44 +37,44 @@ services:
       - service-network
     volumes:
       - ./mysql/conf/my.cnf:/etc/mysql/my.cnf:rw
-      - /var/release/drone_mysql/data:/var/lib/mysql/:rw
-      - /var/release/drone_mysql/logs:/var/log/mysql/:rw
+      - ./data/mysql/data:/var/lib/mysql/:rw
+      - ./data/mysql/logs:/var/log/mysql/:rw
 
   # Redis服务
-  # service_redis:
-  #   image: redis:latest
-  #   container_name: redis_service
-  #   restart: always
-  #   ports:
-  #     - 6379:6379
-  #   networks:
-  #     - service-network
-  #   volumes:
-  #     - ./redis/redis.conf:/usr/local/etc/redis/redis.conf:rw
-  #     - ./data/redis:/data:rw
-  #   command:
-  #     /bin/bash -c "redis-server /usr/local/etc/redis/redis.conf "
+  service_redis:
+    image: redis:latest
+    container_name: redis_service
+    restart: always
+    ports:
+      - 6379:6379
+    networks:
+      - service-network
+    volumes:
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf:rw
+      - ./data/redis:/data:rw
+    command:
+      /bin/bash -c "redis-server /usr/local/etc/redis/redis.conf "
   #Emqx(mqtt-server)
-  # emqx:
-  #   image: "emqx/emqx"
-  #   container_name: "emqx-latest"
-  #   networks:
-  #     - service-network
-  #   environment:
-  #     - EMQX_LOADED_PLUGINS="emqx_management,emqx_auth_http,emqx_dashboard"
-  #     - EMQX_DASHBOARD__DEFAULT_USER__LOGIN=admin
-  #     - EMQX_DASHBOARD__DEFAULT_USER__PASSWORD=public
-  #     - EMQX_NODE__MAX_PORTS=65535
-  #     - EMQX_MQTT__MAX_PACKET_SIZE=16MB
-  #   ports:
-  #    - 18083:18083
-  #    - 1883:1883
-  #    - 8081:8081
-  #    - 8883:8883
-  #   volumes:
-  #    - ./emqx/logs:/opt/emqx/log
-  #    - /etc/localtime:/etc/localtime
-  #   restart: always
+  emqx:
+    image: "emqx/emqx"
+    container_name: "emqx-latest"
+    networks:
+      - service-network
+    environment:
+      - EMQX_LOADED_PLUGINS="emqx_management,emqx_auth_http,emqx_dashboard"
+      - EMQX_DASHBOARD__DEFAULT_USER__LOGIN=admin
+      - EMQX_DASHBOARD__DEFAULT_USER__PASSWORD=public
+      - EMQX_NODE__MAX_PORTS=65535
+      - EMQX_MQTT__MAX_PACKET_SIZE=16MB
+    ports:
+     - 18083:18083
+     - 1883:1883
+     - 8081:8081
+     - 8883:8883
+    volumes:
+     - ./emqx/logs:/opt/emqx/log
+     - /etc/localtime:/etc/localtime
+    restart: always
 
     # emqx1:
     #   image: emqx/emqx
