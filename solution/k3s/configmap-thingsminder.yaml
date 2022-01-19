@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: common-config
+data:
+  SPRING_PROFILES_ACTIVE: prod
+  SERVER_PORT: "80"
+
+  DOMAIN_NAME: koudaibook.com
+  SENTRY_DSN: https://80aaf4ae889b414f9fe72e3904cd5246@sentry.io/1380198
+
+  SSO_ACCESS_KEY: JMVsA4svqk_TUAjq9jOKy0fLVxBaJpiaAAhcn0gr
+  SSO_SECRET_KEY: 39xrdVIpTa65jjPkAB9RCjzdDKN_VY4KdcPkhNjD
+  SSO_BUCKET_NAME: windwithlife
+  SSO_DOMAIN_NAME: koudaibook.com
+
+  #database section
+  ACCOUNT_DATASOURCE_URL: jdbc:mysql://db.zhangyongqiao.com:3306/userdb?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8
+  ACCOUNT_DATASOURCE_USERNAME: root
+  ACCOUNT_DATASOURCE_PASSWORD: root_password
+
+  COMMON_DATASOURCE_URL: jdbc:mysql://db.zhangyongqiao.com:3306/test?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8
+  COMMON_DATASOURCE_USERNAME: root
+  COMMON_DATASOURCE_PASSWORD: root_password
+
+  CMS_DATASOURCE_URL: jdbc:mysql://db.zhangyongqiao.com:3306/cms?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8
+  CMS_DATASOURCE_USERNAME: root
+  CMS_DATASOURCE_PASSWORD: root_password
