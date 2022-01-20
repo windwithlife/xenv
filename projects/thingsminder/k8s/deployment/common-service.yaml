@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: common-service
+  namespace: default
+  labels:
+    app: app-common-service
+    name: common-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-common-service
+      name: common-service
+  template:
+    metadata:
+      labels:
+        app: app-common-service
+        name: common-service
+    spec:
+      containers:
+        - name: container-common-service
+          image: ccr.ccs.tencentyun.com/windwithlife/common-service:latest
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: common-config
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-common-service
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+      name: http
+  selector:
+    app: app-common-service
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-common-service
+  annotations:
+    kubernetes.io/ingress.class: "traefik"
+    traefik.ingress.kubernetes.io/custom-response-headers: "Access-Control-Allow-Origin:*||Access-Control-Allow-Methods:GET,POST,OPTIONS||Access-Control-Allow-Headers:DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,token||Access-Control-Expose-Headers:Content-Length,Content-Range,token"
+spec:
+  tls:
+  - secretName: api-default-secret
+    hosts:
+    - api.thingsminder.com
+  rules:
+    - host: api.thingsminder.com
+      http:
+        paths:
+          - path: /common-service
+            pathType: Prefix
+            backend:
+              service:
+                name: service-common-service
+                port:
+                  number: 80    
+

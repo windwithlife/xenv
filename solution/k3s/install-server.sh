@@ -30,6 +30,11 @@ kubectl apply -f ./cert-clusterissuer-traefik.yaml
  #kubectl port-forward deploy/traefik 9000:9000 --address='0.0.0.0' -n kube-system
 
  #安装helm push 
+ wget https://get.helm.sh/helm-v3.5.0-linux-amd64.tar.gz
+ tar -zxvf helm-v3.5.0-linux-amd64.tar.gz
+ chmod 755 linux-amd64/helm
+ #cp linux-amd64/helm /usr/bin/
+ cp linux-amd64/helm /usr/local/bin/
  #helm plugin install https://github.com/chartmuseum/helm-pus
 
 
