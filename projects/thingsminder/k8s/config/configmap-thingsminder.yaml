@@ -8,6 +8,7 @@ data:
 
   DOMAIN_NAME: thingsminder.com
   SENTRY_DSN: https://80aaf4ae889b414f9fe72e3904cd5246@sentry.io/1380198
+  SOA_GATEWAY: api.thingsminder.com
 
   SSO_ACCESS_KEY: JMVsA4svqk_TUAjq9jOKy0fLVxBaJpiaAAhcn0gr
   SSO_SECRET_KEY: 39xrdVIpTa65jjPkAB9RCjzdDKN_VY4KdcPkhNjD
