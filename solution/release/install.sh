@@ -8,6 +8,7 @@ yum install -y yum-utils
 yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
 yum list docker-ce --showduplicates | sort -r
 yum install -y docker-ce docker-ce-cli containerd.io
+yum install -y libseccomp-devel 
 systemctl start docker
 
 
