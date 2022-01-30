@@ -1,11 +1,9 @@
 version: "3.7"
 
 networks:
-  dronenet:
-    name: dronenet
-# volumes:
-#   portainerdata:
-#     name: portainerdata
+  service-network:
+    name: service-network
+
 
 services:
  
@@ -22,7 +20,7 @@ services:
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     networks:
-      dronenet:
+      - service-network
     volumes:
       - ./conf/mysql/my.cnf:/etc/mysql/my.cnf:rw
       - /var/release/drone_mysql/data:/var/lib/mysql/:rw
@@ -74,7 +72,7 @@ services:
     depends_on:
       - drone_mysql
     networks:
-      dronenet:
+      - service-network
 
   drone-runner:
     image: ${DRONE_RUNNER_DOCKER_IMAGE}
@@ -91,7 +89,7 @@ services:
       - DRONE_RPC_SECRET=${DRONE_RPC_SECRET}
       - DRONE_RUNNER_CAPACITY=${DRONE_RUNNER_CAPACITY}
     networks:
-      - dronenet
+      - service-network
     depends_on:
       - drone_server
       - drone_mysql

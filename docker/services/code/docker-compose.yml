@@ -1,0 +1,47 @@
+version: "3.7"
+
+networks:
+  service-network:
+    name: service-network
+services:
+ 
+  #gitea server
+  gitea_server:
+    image: ${GITEA_DOCKER_IMAGE}
+    labels:
+      - "traefik.http.routers.whoami.rule=Host(`git.zhangyongqiao.com`)"
+    container_name: ${GITEA_SERVICE_DOMAIN}   
+    ports:
+      - ${GITEA_SSH_PORT_EXPOSE}:22
+      - 3000:3000
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+      - APP_NAME=Gitea
+      - RUN_MODE=prod
+      - RUN_USER=git
+      - SSH_DOMAIN=${GITEA_SERVICE_DOMAIN}
+      - SSH_PORT=22
+      - SSH_LISTEN_PORT=22
+      - HTTP_PORT=3000
+      - ROOT_URL=http://${GITEA_SERVICE_DOMAIN}
+      - LFS_START_SERVER=true
+      - REQUIRE_SIGNIN_VIEW=true
+      - DB_TYPE=sqlite3 
+      - INSTALL_LOCK=false
+      - DISABLE_GRAVATAR=true
+    networks:
+      - service-network
+    restart: unless-stopped
+    volumes:
+      # 标准 Linux 系统下使用
+      # - /etc/localtime:/etc/localtime:ro
+      # - /etc/timezone:/etc/timezone:ro
+      - /var/release/gitea_server/repositories:/data/git/repositories
+      - /var/release/data/gitea_server/data:/data/gitea/
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+    extra_hosts:
+      - "${GITEA_SERVICE_DOMAIN}:127.0.0.1"
