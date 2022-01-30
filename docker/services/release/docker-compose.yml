@@ -31,8 +31,8 @@ services:
   # drone 服务端
   drone_server:
     image: ${DRONE_DOCKER_IMAGE}
-    labels:
-      - "traefik.http.routers.whoami.rule=Host(`drone.zhangyongqiao.com`)"
+    # labels:
+    #   - "traefik.http.routers.whoami.rule=Host(`drone.zhangyongqiao.com`)"
     container_name: drone_server
     ports:
       - 8888:80 # drone comtainer serves via port 80, we expose to end users via port 8381
@@ -78,8 +78,8 @@ services:
 
   drone-runner:
     image: ${DRONE_RUNNER_DOCKER_IMAGE}
-    labels:
-      - "traefik.http.routers.dronerunner.rule=Host(`drone.zhangyongqiao.com`)"
+    # labels:
+    #   - "traefik.http.routers.dronerunner.rule=Host(`drone.zhangyongqiao.com`)"
     container_name: drone_runner
     expose:
       - 3000
