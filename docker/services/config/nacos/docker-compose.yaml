@@ -11,7 +11,7 @@ services:
       - "9848:9848"
       - "9555:9555"
     env_file:
-      - ../env/nacos-hostname.env
+      - ./nacos-hostname.env
     restart: always
     depends_on:
       - mysql
@@ -26,7 +26,7 @@ services:
       - "8849:8848"
       - "9849:9848"
     env_file:
-      - ../env/nacos-hostname.env
+      - ./nacos-hostname.env
     restart: always
     depends_on:
       - mysql
@@ -40,7 +40,7 @@ services:
       - "8850:8848"
       - "9850:9848"
     env_file:
-      - ../env/nacos-hostname.env
+      - ./nacos-hostname.env
     restart: always
     depends_on:
       - mysql
@@ -48,7 +48,7 @@ services:
     container_name: mysql
     image: nacos/nacos-mysql:5.7
     env_file:
-      - ../env/mysql.env
+      - ./mysql.env
     volumes:
       - ./mysql:/var/lib/mysql
     ports:

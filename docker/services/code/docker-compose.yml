@@ -9,7 +9,7 @@ services:
   gitea_server:
     image: ${GITEA_DOCKER_IMAGE}
     labels:
-      - "traefik.http.routers.whoami.rule=Host(`git.zhangyongqiao.com`)"
+      - "traefik.http.routers.whoami.rule=Host(`git.koudaibook.com`)"
     container_name: ${GITEA_SERVICE_DOMAIN}   
     ports:
       - ${GITEA_SSH_PORT_EXPOSE}:22
