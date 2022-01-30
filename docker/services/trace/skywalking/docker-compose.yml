@@ -1,0 +1,49 @@
+version: '3.7'
+services:
+  es7:
+    image: elasticsearch:7.10.1
+    container_name: es7
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment:
+      - discovery.type=single-node #单例模式
+      - bootstrap.memory_lock=true #锁定物理内存地址，防止es内存被交换出去，也就是避免es使用swap交换分区，频繁的交换，会导致IOPS变高
+      - "ES_JAVA_OPTS=-Xms1048m -Xmx1048m" #堆内存大小
+      - TZ=Asia/Shanghai
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - /var/elasticsearch/data:/usr/share/elasticsearch/data
+
+  skywalking-oap:
+    image: apache/skywalking-oap-server:8.3.0-es7
+    container_name: skywalking-oap
+    restart: always
+    depends_on:
+      - es7
+    links:
+      - es7
+    ports:
+      - 11800:11800
+      - 12800:12800
+    environment:
+      TZ: Asia/Shanghai
+      SW_STORAGE: elasticsearch7
+      SW_STORAGE_ES_CLUSTER_NODES: es7:9200
+
+  skywalking-ui:
+    image: apache/skywalking-ui:8.3.0
+    container_name: skywalking-ui
+    restart: always
+    depends_on:
+      - skywalking-oap
+    links:
+      - skywalking-oap
+    ports:
+      - 8080:8080
+    environment:
+      TZ: Asia/Shanghai
+      SW_OAP_ADDRESS: skywalking-oap:12800
