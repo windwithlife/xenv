@@ -1,0 +1,1 @@
+java -javaagent:/Users/ctrip/code/creation/java-service-base/skywalking-agent/skywalking-agent.jar -Dskywalking.agent.service_name=order-service -Dskywalking.collector.backend_service=47.116.70.243:11800 -jar order-service.jar

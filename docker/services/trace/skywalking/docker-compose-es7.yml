@@ -1,5 +1,24 @@
 version: '3.7'
 services:
+  elasticsearch:
+    image: elasticsearch:7.14.2
+    container_name: elasticsearch
+    restart: always
+    ports:
+      - 9200:9200
+    environment:
+      - "TAKE_FILE_OWNERSHIP=true" #volumes 挂载权限 如果不想要挂载es文件改配置可以删除
+      - "discovery.type=single-node" #单机模式启动
+      - "TZ=Asia/Shanghai" # 设置时区
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m" # 设置jvm内存大小
+    volumes:
+      - /var/elasticsearch/logs:/usr/share/elasticsearch/logs
+      - /var/elasticsearch/data:/usr/share/elasticsearch/data
+ 
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
   skywalking-oap-server:
     image: apache/skywalking-oap-server:8.9.1
     container_name: skywalking-oap-server
@@ -12,6 +31,8 @@ services:
       - 11800:11800
       - 12800:12800
     environment:
+      SW_STORAGE: elasticsearch  # 指定ES版本
+      SW_STORAGE_ES_CLUSTER_NODES: elasticsearch:9200
       TZ: Asia/Shanghai
     volumes:
      - ./oap/conf/alarm-settings.yml:/skywalking/config/alarm-settings.yml
