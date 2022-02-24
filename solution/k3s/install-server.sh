@@ -19,7 +19,7 @@ export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
 
 
 #安装证书管理器
-wget https://github.com/jetstack/cert-manager/releases/download/v1.0.3/cert-manager.yaml
+wget https://github.com/jetstack/cert-manager/releases/download/v1.6.0/cert-manager.yaml
 kubectl apply -f ./cert-manager.yaml
 #配置证书 provider---clusterissuer
 kubectl apply -f ./cert-clusterissuer-traefik.yaml

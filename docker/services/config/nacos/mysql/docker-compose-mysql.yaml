@@ -4,7 +4,7 @@ services:
     image: nacos/nacos-server:2.0.0
     container_name: nacos-standalone-mysql
     env_file:
-      - ../env/nacos-standlone-mysql.env
+      - ./env/nacos-mysql.env
     volumes:
       - ./standalone-logs/:/home/nacos/logs
       - ./config/nacos-custom.properties:/home/nacos/init.d/custom.properties
@@ -19,7 +19,7 @@ services:
     container_name: mysql
     image: nacos/nacos-mysql:8.0.16
     env_file:
-      - ../env/mysql.env
+      - ./env/mysql.env
     volumes:
       - ./mysql:/var/lib/mysql
     ports:

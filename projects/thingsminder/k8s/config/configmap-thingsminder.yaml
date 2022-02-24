@@ -15,6 +15,9 @@ data:
   SSO_BUCKET_NAME: windwithlife
   SSO_DOMAIN_NAME: thingsminder.com
 
+  WECHAT_MINI_APPID: wx6df0275477ded21b
+  WECHAT_MINI_APPSECRET: wx6df0275477ded21b
+
   REDIS_HOST: mq.zhangyongqiao.com
   REDIS_PORT: 6379
   REDIS_PASSWORD: 12345678
