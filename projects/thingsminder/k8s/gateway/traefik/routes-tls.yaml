@@ -18,6 +18,7 @@ spec:
           port: 80
       middlewares:
         - name: cms-stripprefix   
+        - name: cors-header
 
     - match: Host(`api.thingsminder.com`) && PathPrefix(`/account-service`)
       kind: Rule
@@ -25,7 +26,8 @@ spec:
         - name: service-account-service
           port: 80
       middlewares:
-        - name: cms-stripprefix    
+        - name: cms-stripprefix
+        - name: cors-header    
 
     - match: Host(`api.thingsminder.com`) && PathPrefix(`/cms-service`)
       kind: Rule
@@ -34,6 +36,7 @@ spec:
           port: 80
       middlewares:
         - name: cms-stripprefix
+        - name: cors-header
 
     - match: Host(`api.thingsminder.com`) && PathPrefix(`/ops-service`)
       kind: Rule
@@ -41,14 +44,16 @@ spec:
         - name: service-ops-service
           port: 80
       middlewares:
-        - name: cms-stripprefix   
+        - name: cms-stripprefix
+        - name: cors-header 
     - match: Host(`api.thingsminder.com`) && PathPrefix(`/work-order-service`)
       kind: Rule
       services:
         - name: service-work-order-service
           port: 80
       middlewares:
-        - name: cms-stripprefix          
+        - name: cms-stripprefix
+        - name: cors-header       
 
 ---
 apiVersion: traefik.containo.us/v1alpha1
@@ -65,6 +70,27 @@ spec:
       - /work-order-service
      
 
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: cors-header
+spec:
+  headers:
+    accessControlAllowMethods:
+      - "GET"
+      - "OPTIONS"
+      - "PUT"
+      - "POST"
+    accessControlAllowOriginList:
+      - "https://api.thingsminder.com"
+      - "http://localhost:5388"
+    accessControlMaxAge: 100
+    accessControlAllowHeaders:
+      - "Content-Type"
+      - "token"
+    accessControlAllowCredentials: true
+    addVaryHeader: true
 
 
 # ---
