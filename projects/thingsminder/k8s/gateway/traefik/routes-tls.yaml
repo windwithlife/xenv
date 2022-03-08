@@ -54,6 +54,14 @@ spec:
       middlewares:
         - name: cms-stripprefix
         - name: cors-header       
+    - match: Host(`api.thingsminder.com`) && PathPrefix(`/release-service`)
+      kind: Rule
+      services:
+        - name: service-release-service
+          port: 80
+      middlewares:
+        - name: cms-stripprefix
+        - name: cors-header        
 
 ---
 apiVersion: traefik.containo.us/v1alpha1

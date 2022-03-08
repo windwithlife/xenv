@@ -39,6 +39,10 @@ data:
   WORK_ORDER_DATASOURCE_USERNAME: root
   WORK_ORDER_DATASOURCE_PASSWORD: root_password
 
+  RELEASE_DATASOURCE_URL: jdbc:mysql://db.zhangyongqiao.com:3306/releasedb?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8 
+  RELEASE_DATASOURCE_USERNAME: root
+  RELEASE_DATASOURCE_PASSWORD: root_password
+
   PROJECT_DATASOURCE_URL: jdbc:mysql://db.zhangyongqiao.com:3306/workorder?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8
   PROJECT_DATASOURCE_USERNAME: root
   PROJECT_DATASOURCE_PASSWORD: root_password
