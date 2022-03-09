@@ -13,7 +13,7 @@ data:
   SSO_ACCESS_KEY: JMVsA4svqk_TUAjq9jOKy0fLVxBaJpiaAAhcn0gr
   SSO_SECRET_KEY: 39xrdVIpTa65jjPkAB9RCjzdDKN_VY4KdcPkhNjD
   SSO_BUCKET_NAME: windwithlife
-  SSO_DOMAIN_NAME: thingsminder.com
+  SSO_DOMAIN_NAME: https://images.koudaibook.com
 
   WECHAT_MINI_APPID: wx6df0275477ded21b
   WECHAT_MINI_APPSECRET: wx6df0275477ded21b

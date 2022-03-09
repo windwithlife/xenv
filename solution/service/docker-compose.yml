@@ -40,20 +40,21 @@ services:
       - /var/release/drone_mysql/data:/var/lib/mysql/:rw
       - /var/release/drone_mysql/logs:/var/log/mysql/:rw
 
-  # Redis服务
-  # service_redis:
-  #   image: redis:latest
-  #   container_name: redis_service
-  #   restart: always
-  #   ports:
-  #     - 6379:6379
-  #   networks:
-  #     - service-network
-  #   volumes:
-  #     - ./redis/redis.conf:/usr/local/etc/redis/redis.conf:rw
-  #     - ./data/redis:/data:rw
-  #   command:
-  #     /bin/bash -c "redis-server /usr/local/etc/redis/redis.conf "
+  #Redis服务
+  service_redis:
+    image: redis:latest
+    container_name: redis_service
+    restart: always
+    ports:
+      - 6379:6379
+    networks:
+      - service-network
+    volumes:
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf:rw
+      -  /var/release/redis/data:/data:rw
+    command:
+      /bin/bash -c "redis-server /usr/local/etc/redis/redis.conf "
+      
   #Emqx(mqtt-server)
   # emqx:
   #   image: "emqx/emqx"
