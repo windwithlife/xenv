@@ -76,6 +76,7 @@ spec:
       - /cms-service
       - /opt-service
       - /work-order-service
+      - /release-service
      
 
 ---
