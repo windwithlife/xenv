@@ -98,7 +98,7 @@ spec:
     accessControlAllowHeaders:
       - "Content-Type"
       - "token"
-    accessControlAllowCredentials: true
+    # accessControlAllowCredentials: true
     addVaryHeader: true
 
 

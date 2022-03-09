@@ -1,56 +1,5 @@
+        
 
-# apiVersion: traefik.containo.us/v1alpha1
-# kind: IngressRoute
-# metadata:
-#   name: routes-ingress-tls
-#   namespace: default
-# spec:
-#   entryPoints:
-#     - websecure
-#   tls:
-#    secretName: api-default-secret
-#   routes:
-  
-#     - match: Host(`api.thingsminder.com`) && PathPrefix(`/common-service`)
-#       kind: Rule
-#       services:
-#         - name: service-common-service
-#           port: 80
-#       middlewares:
-#         - name: cms-stripprefix   
-
-#     - match: Host(`api.thingsminder.com`) && PathPrefix(`/account-service`)
-#       kind: Rule
-#       services:
-#         - name: service-account-service
-#           port: 80
-#       middlewares:
-#         - name: cms-stripprefix    
-
-#     - match: Host(`api.thingsminder.com`) && PathPrefix(`/cms-service`)
-#       kind: Rule
-#       services:
-#         - name: service-cms-service
-#           port: 80
-#       middlewares:
-#         - name: cms-stripprefix
-
-#      - match: Host(`api.thingsminder.com`) && PathPrefix(`/ops-service`)
-#       kind: Rule
-#       services:
-#         - name: service-ops-service
-#           port: 80
-#       middlewares:
-#         - name: cms-stripprefix   
-#     - match: Host(`api.thingsminder.com`) && PathPrefix(`/work-order-service`)
-#       kind: Rule
-#       services:
-#         - name: service-work-order-service
-#           port: 80
-#       middlewares:
-#         - name: cms-stripprefix          
-
----
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
@@ -63,8 +12,30 @@ spec:
       - /cms-service
       - /opt-service
       - /work-order-service
+      - /release-service
      
 
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: cors-header
+spec:
+  headers:
+    accessControlAllowMethods:
+      - "GET"
+      - "OPTIONS"
+      - "PUT"
+      - "POST"
+    accessControlAllowOriginList:
+      - "https://api.thingsminder.com"
+      - "http://localhost:5388"
+    accessControlMaxAge: 100
+    accessControlAllowHeaders:
+      - "Content-Type"
+      - "token"
+    # accessControlAllowCredentials: true
+    addVaryHeader: true
 
 
 ---
@@ -84,7 +55,8 @@ spec:
         - name: service-common-service
           port: 80
       middlewares:
-        - name: cms-stripprefix   
+        - name: cms-stripprefix 
+        - name: cors-header  
 
     - match: Host(`api.thingsminder.com`) && PathPrefix(`/account-service`)
       kind: Rule
@@ -92,7 +64,8 @@ spec:
         - name: service-account-service
           port: 80
       middlewares:
-        - name: cms-stripprefix    
+        - name: cms-stripprefix 
+        - name: cors-header      
 
     - match: Host(`api.thingsminder.com`) && PathPrefix(`/cms-service`)
       kind: Rule
@@ -101,6 +74,7 @@ spec:
           port: 80
       middlewares:
         - name: cms-stripprefix
+        - name: cors-header    
 
      - match: Host(`api.thingsminder.com`) && PathPrefix(`/ops-service`)
       kind: Rule
@@ -108,12 +82,22 @@ spec:
         - name: service-ops-service
           port: 80
       middlewares:
-        - name: cms-stripprefix   
+        - name: cms-stripprefix
+        - name: cors-header   
     - match: Host(`api.thingsminder.com`) && PathPrefix(`/work-order-service`)
       kind: Rule
       services:
         - name: service-work-order-service
           port: 80
       middlewares:
-        - name: cms-stripprefix   
+        - name: cms-stripprefix
+        - name: cors-header 
+    - match: Host(`api.thingsminder.com`) && PathPrefix(`/release-service`)
+      kind: Rule
+      services:
+        - name: service-release-service
+          port: 80
+      middlewares:
+        - name: cms-stripprefix       
+        - name: cors-header
 
