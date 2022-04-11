@@ -1,11 +1,29 @@
 #/bin/bash
+
+# For the accross cloud deploy.install wireguard VPN support if is above CentOS8 ,if lower than CentOs8 need to upgrade the linux kernal core
+# yum update -y
+# yum install epel-release https://www.elrepo.org/elrepo-release-8.el8.elrepo.noarch.rpm
+# yum install kmod-wireguard
+# yum install wireguard-tools
+# reboot
+
+#支持包转发
+# vim /etc/sysctl.conf
+#net.ipv4.ip_forward = 1
+# sysctl -p
+
+
+
+
+
 /usr/local/bin/k3s-uninstall.sh
 /usr/local/bin/k3s-agent-uninstall.sh
 
 #export INSTALL_K3S_EXEC='--docker --tls-san <public_ip> --node-ip <public_ip> --node-external-ip <public_ip> --no-deploy servicelb --flannel-backend wireguard --kube-proxy-arg "proxy-mode=ipvs" "masquerade-all=true" --kube-proxy-arg "metrics-bind-address=0.0.0.0"'
 
-export INSTALL_K3S_EXEC='--docker --tls-san 139.196.106.5 --node-ip 139.196.106.5 --node-external-ip 139.196.106.5 --no-deploy servicelb --flannel-backend wireguard --kube-proxy-arg "proxy-mode=ipvs" "masquerade-all=true" --kube-proxy-arg "metrics-bind-address=0.0.0.0"'
-
+#export INSTALL_K3S_EXEC='--tls-san 139.196.106.5,172.19.171.222 --node-external-ip 139.196.106.5  --advertise-address 139.196.106.5 --node-ip 172.19.171.222 --no-deploy servicelb --flannel-backend wireguard --kube-proxy-arg "proxy-mode=ipvs" "masquerade-all=true"'
+#export INSTALL_K3S_EXEC='--node-external-ip 139.196.106.5  --advertise-address 139.196.106.5 --node-ip 172.19.171.222 --flannel-backend wireguard '
+export INSTALL_K3S_EXEC='--node-external-ip 139.196.106.5  --advertise-address 139.196.106.5 --node-ip 172.19.171.222 --flannel-iface wg0 '
 
 curl -sfL http://rancher-mirror.cnrancher.com/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn sh -
 #安装Agent work node. 3S_TOKEN使用的值存储在你的服务器节点上的/var/lib/rancher/k3s/server/node-token路径下
@@ -21,7 +39,7 @@ curl -sfL http://rancher-mirror.cnrancher.com/k3s/k3s-install.sh | INSTALL_K3S_M
 #helm repo add $NAMESPACE https://repomanage.rdc.aliyun.com/helm_repositories/$NAMESPACE --username=zx7h6P --password=F4EpoIe7Ms
 #//配置k3s可操作
 export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
-
+cat /var/lib/rancher/k3s/server/node-token
 
 
 #安装证书管理器

@@ -92,13 +92,13 @@ spec:
       - "PUT"
       - "POST"
     accessControlAllowOriginList:
-      - "https://api.thingsminder.com"
-      - "http://localhost:5388"
+      - "*"
     accessControlMaxAge: 100
     accessControlAllowHeaders:
       - "Content-Type"
       - "token"
-    # accessControlAllowCredentials: true
+      - "x-requested-with"
+    accessControlAllowCredentials: true
     addVaryHeader: true
 
 
