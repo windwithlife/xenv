@@ -23,7 +23,7 @@ yum install https://www.elrepo.org/elrepo-release-8.el8.elrepo.noarch.rpm
 
 yum --disablerepo="*" --enablerepo="elrepo-kernel" list available
 hostnamectl 
-yum clean all && yum -y install --enablerepo=elrepo-kernel kernel-lt kernel-lt-devel  kernel-ml-tools kernel-ml-headers
+yum clean all && yum -y install --enablerepo=elrepo-kernel kernel-ml kernel-ml-devel  kernel-ml-tools kernel-ml-headers
 #查看默认加载的内核
 grubby --default-kernel
 
@@ -86,6 +86,10 @@ kubectl annotate nodes master-node flannel.alpha.coreos.com/public-ip-overwrite=
 kubectl annotate nodes work-node flannel.alpha.coreos.com/public-ip-overwrite=<work_pub_ip>
 
 ###########################解决内网不通->集群操作无法访问work node ###################
+
+iptables -t nat -A OUTPUT -d node1-内网ip  -j DNAT --to-destination node1-公网ip
+
+iptables -t nat -A OUTPUT -d node2-内网ip  -j DNAT --to-destination node2-公网ip
 
 
 

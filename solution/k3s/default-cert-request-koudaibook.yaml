@@ -4,7 +4,7 @@ metadata:
   name: api-default-cert
 spec:
   dnsNames:
-    - api.koudaibook.com
+    - gateway.koudaibook.com
   secretName: api-default-secret
   issuerRef:
     name: letsencrypt-prod
@@ -17,7 +17,7 @@ metadata:
   name: admin-default-cert
 spec:
   dnsNames:
-    - admin.koudaibook.com
+    - manager.koudaibook.com
   secretName: admin-default-secret
   issuerRef:
     name: letsencrypt-prod
@@ -43,7 +43,7 @@ metadata:
   name: m-default-cert
 spec:
   dnsNames:
-    - m.koudaibook.com
+    - mobile.koudaibook.com
   secretName: m-default-secret
   issuerRef:
     name: letsencrypt-prod
@@ -57,7 +57,7 @@ metadata:
   name: traefik-default-cert
 spec:
   dnsNames:
-    - traefik.koudaibook.com
+    - ingress.koudaibook.com
   secretName: traefik-default-secret
   issuerRef:
     name: letsencrypt-prod
