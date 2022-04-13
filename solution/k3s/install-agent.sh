@@ -11,7 +11,7 @@ curl -sfL http://rancher-mirror.cnrancher.com/k3s/k3s-install.sh | INSTALL_K3S_M
 
 
 #安装证书管理器
-wget https://github.com/jetstack/cert-manager/releases/download/v1.0.3/cert-manager.yaml
+wget https://github.com/jetstack/cert-manager/releases/download/v1.6.0/cert-manager.yaml
 kubectl apply -f ./cert-manager.yaml
 #配置证书 provider
 kubectl apply -f ./cert-clusterissuer-traefik.yaml
