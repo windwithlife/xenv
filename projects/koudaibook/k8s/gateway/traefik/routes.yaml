@@ -1,0 +1,103 @@
+        
+
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: cms-stripprefix
+spec:
+  stripPrefix:
+    prefixes:
+      - /common-service
+      - /account-service
+      - /cms-service
+      - /opt-service 
+      - /release-service
+      - /work-order-service
+     
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: cors-header
+spec:
+  headers:
+    accessControlAllowMethods:
+      - "GET"
+      - "OPTIONS"
+      - "PUT"
+      - "POST"
+    accessControlAllowOriginList:
+      - "*"
+    accessControlMaxAge: 100
+    accessControlAllowHeaders:
+      - "Content-Type"
+      - "token"
+      - "x-requested-with"
+    # accessControlAllowCredentials: true
+    addVaryHeader: true
+
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: routes-ingress
+  namespace: default
+spec:
+  entryPoints:
+    - web
+  routes:
+  
+    - match: Host(`api.thingsminder.com`) && PathPrefix(`/common-service`)
+      kind: Rule
+      services:
+        - name: service-common-service
+          port: 80
+      middlewares:
+        - name: cms-stripprefix 
+        - name: cors-header  
+
+    - match: Host(`api.thingsminder.com`) && PathPrefix(`/account-service`)
+      kind: Rule
+      services:
+        - name: service-account-service
+          port: 80
+      middlewares:
+        - name: cms-stripprefix 
+        - name: cors-header      
+
+    - match: Host(`api.thingsminder.com`) && PathPrefix(`/cms-service`)
+      kind: Rule
+      services:
+        - name: service-cms-service
+          port: 80
+      middlewares:
+        - name: cms-stripprefix
+        - name: cors-header    
+
+     - match: Host(`api.thingsminder.com`) && PathPrefix(`/ops-service`)
+      kind: Rule
+      services:
+        - name: service-ops-service
+          port: 80
+      middlewares:
+        - name: cms-stripprefix
+        - name: cors-header   
+    - match: Host(`api.thingsminder.com`) && PathPrefix(`/work-order-service`)
+      kind: Rule
+      services:
+        - name: service-work-order-service
+          port: 80
+      middlewares:
+        - name: cms-stripprefix
+        - name: cors-header 
+    - match: Host(`api.thingsminder.com`) && PathPrefix(`/release-service`)
+      kind: Rule
+      services:
+        - name: service-release-service
+          port: 80
+      middlewares:
+        - name: cms-stripprefix       
+        - name: cors-header
+

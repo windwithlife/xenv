@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: common-config
+data:
+  SPRING_PROFILES_ACTIVE: prod
+  SERVER_PORT: "80"
+
+  DOMAIN_NAME: koudaibook.com
+  SENTRY_DSN: https://80aaf4ae889b414f9fe72e3904cd5246@sentry.io/1380198
+  SOA_GATEWAY: api.koudaibook.com
+
+  SSO_ACCESS_KEY: JMVsA4svqk_TUAjq9jOKy0fLVxBaJpiaAAhcn0gr
+  SSO_SECRET_KEY: 39xrdVIpTa65jjPkAB9RCjzdDKN_VY4KdcPkhNjD
+  SSO_BUCKET_NAME: windwithlife
+  SSO_DOMAIN_NAME: https://images.koudaibook.com
+
+  WECHAT_MINI_APPID: wx6df0275477ded21b
+  WECHAT_MINI_APPSECRET: wx6df0275477ded21b
+
+  REDIS_HOST: mq.zhangyongqiao.com
+  REDIS_PORT: 6379
+  REDIS_PASSWORD: 12345678
+
+  #database section
+  ACCOUNT_DATASOURCE_URL: jdbc:mysql://db.koudaibook.com:3306/userdb?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8
+  ACCOUNT_DATASOURCE_USERNAME: root
+  ACCOUNT_DATASOURCE_PASSWORD: root_password
+
+  COMMON_DATASOURCE_URL: jdbc:mysql://db.koudaibook.com:3306/test?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8
+  COMMON_DATASOURCE_USERNAME: root
+  COMMON_DATASOURCE_PASSWORD: root_password
+
+  CMS_DATASOURCE_URL: jdbc:mysql://db.koudaibook.com:3306/cms?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8
+  CMS_DATASOURCE_USERNAME: root
+  CMS_DATASOURCE_PASSWORD: root_password
+
+  WORK_ORDER_DATASOURCE_URL: jdbc:mysql://db.koudaibook.com:3306/workorder?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8
+  WORK_ORDER_DATASOURCE_USERNAME: root
+  WORK_ORDER_DATASOURCE_PASSWORD: root_password
+
+  RELEASE_DATASOURCE_URL: jdbc:mysql://db.koudaibook.com:3306/releasedb?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8 
+  RELEASE_DATASOURCE_USERNAME: root
+  RELEASE_DATASOURCE_PASSWORD: root_password
+
+  PROJECT_DATASOURCE_URL: jdbc:mysql://db.koudaibook.com:3306/workorder?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8
+  PROJECT_DATASOURCE_USERNAME: root
+  PROJECT_DATASOURCE_PASSWORD: root_password

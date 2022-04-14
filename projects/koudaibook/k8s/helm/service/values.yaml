@@ -1,0 +1,26 @@
+# Default values for demo.
+# This is a YAML-formatted file.
+
+secretName: ingress-secret-zhangyongqiao
+host: service.zhangyongqiao.com
+redis:
+  host: service.zhangyongqiao.com
+  image: redis:latest
+  app_name: redis
+  service:
+    port: 80
+  ingress:
+    path: /redis
+mysql:
+  host: service.zhangyongqiao.com
+  image: mysql:latest
+  app_name: mysql
+  service:
+    port: 80
+  ingress:
+    path: /mysql
+    
+    
+   
+      
+   

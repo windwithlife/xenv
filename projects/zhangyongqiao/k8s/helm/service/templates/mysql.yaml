@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-{{.{{.Values.mysql.app_name}}}}
+  namespace: default
+  labels:
+    app: app-{{.{{.Values.mysql.app_name}}}}
+    name: {{.{{.Values.mysql.app_name}}}}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-{{.{{.Values.mysql.app_name}}}}
+      name: {{.{{.Values.mysql.app_name}}}}
+  template:
+    metadata:
+      labels:
+        app: app-{{.{{.Values.mysql.app_name}}}}
+        name: {{.{{.Values.mysql.app_name}}}}
+    spec:
+      containers:
+        - name: container-{{.{{.Values.mysql.app_name}}}}
+          image: mysql
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-{{.{{.Values.mysql.app_name}}}}
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+      name: http
+  selector:
+    app: app-{{.{{.Values.mysql.app_name}}}}
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-{{.{{.Values.mysql.app_name}}}}
+  annotations:
+    kubernetes.io/ingress.class: "traefik"
+    cert-manager.io/cluster-issuer: letsencrypt
+    
+spec:
+  tls: 
+  - secretName: {{.Values.secretName}}
+    hosts:
+    - {{.Values.host}}
+  rules:
+    - host: {{.Values.host}}
+      http:
+        paths:
+          - path: {{.Values.mysql.ingress.path}}
+            pathType: Prefix
+            backend:
+              service:
+                name: service-{{.{{.Values.mysql.app_name}}}}
+                port:
+                  number: 80
