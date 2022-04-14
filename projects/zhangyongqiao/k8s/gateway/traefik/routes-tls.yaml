@@ -65,7 +65,7 @@ spec:
     - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/ugc-service`)
       kind: Rule
       services:
-        - name: service-release-service
+        - name: service-ugc-service
           port: 80
       middlewares:
         - name: cms-stripprefix
@@ -73,7 +73,7 @@ spec:
     - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/seo-service`)
       kind: Rule
       services:
-        - name: service-release-service
+        - name: service-seo-service
           port: 80
       middlewares:
         - name: cms-stripprefix
