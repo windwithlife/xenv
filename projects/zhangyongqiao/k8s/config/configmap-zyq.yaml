@@ -6,9 +6,9 @@ data:
   SPRING_PROFILES_ACTIVE: prod
   SERVER_PORT: "80"
 
-  DOMAIN_NAME: thingsminder.com
+  DOMAIN_NAME: zhangyongqiao.com
   SENTRY_DSN: https://80aaf4ae889b414f9fe72e3904cd5246@sentry.io/1380198
-  SOA_GATEWAY: api.thingsminder.com
+  SOA_GATEWAY: api.zhangyongqiao.com
 
   SSO_ACCESS_KEY: JMVsA4svqk_TUAjq9jOKy0fLVxBaJpiaAAhcn0gr
   SSO_SECRET_KEY: 39xrdVIpTa65jjPkAB9RCjzdDKN_VY4KdcPkhNjD
