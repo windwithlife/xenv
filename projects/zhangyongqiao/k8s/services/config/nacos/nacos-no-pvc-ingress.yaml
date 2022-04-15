@@ -139,5 +139,5 @@ spec:
               service:
                 name: nacos-headless
                 port:
-                  number: server
+                  number: 8848
 
