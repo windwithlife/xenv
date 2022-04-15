@@ -39,7 +39,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mysql5.7
+  name: mysql5
   labels:
     name: mysql
 spec:
