@@ -31,11 +31,11 @@ kind: ConfigMap
 metadata:
   name: nacos-cm
 data:
-  mysql.host: "10.127.1.12"
+  mysql.host: "mysql5.7"
   mysql.db.name: "nacos_devtest"
   mysql.port: "3306"
   mysql.user: "nacos"
-  mysql.password: "passwd"
+  mysql.password: "nacos"
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -122,19 +122,22 @@ spec:
 
 
 ---
-# ------------------- App Ingress ------------------- #
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: nacos-headless
-  namespace: default
-
+  name: ingress-{{.app_name}}
+  annotations:
+    kubernetes.io/ingress.class: "traefik"
 spec:
   rules:
-  - host: nacos-web.nacos-demo.com
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: nacos-headless
-          servicePort: server
+    - host:  config.zhangyongqiao.com
+      http:
+        paths:
+          - path:  config.zhangyongqiao.com
+            pathType: Prefix
+            backend:
+              service:
+                name: nacos-headless
+                port:
+                  number: server
+
