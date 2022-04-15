@@ -31,7 +31,7 @@ kind: ConfigMap
 metadata:
   name: nacos-cm
 data:
-  mysql.host: "mysql5.7"
+  mysql.host: "mysql5"
   mysql.db.name: "nacos_devtest"
   mysql.port: "3306"
   mysql.user: "nacos"
