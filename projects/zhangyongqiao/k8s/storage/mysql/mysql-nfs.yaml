@@ -23,7 +23,7 @@ spec:
           mountPath: /var/lib/mysql
         env:
         - name: MYSQL_ROOT_PASSWORD
-          value: "root"
+          value: "root_password"
         - name: MYSQL_DATABASE
           value: "nacos_devtest"
         - name: MYSQL_USER
@@ -39,7 +39,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mysql
+  name: mysql5.7
   labels:
     name: mysql
 spec:
