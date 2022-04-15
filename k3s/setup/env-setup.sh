@@ -23,13 +23,15 @@ yum install https://www.elrepo.org/elrepo-release-8.el8.elrepo.noarch.rpm
 
 yum --disablerepo="*" --enablerepo="elrepo-kernel" list available
 hostnamectl 
-yum clean all && yum -y install --enablerepo=elrepo-kernel kernel-ml kernel-ml-devel  kernel-ml-tools kernel-ml-headers
+yum clean all && yum -y install --enablerepo=elrepo-kernel kernel-ml kernel-ml-devel  
 #查看默认加载的内核
 grubby --default-kernel
 
 # 重启生效
 
 reboot
+
+ yum -y install kernel-ml-tools kernel-ml-headers
 
 ########################CentOS 7升级内核#############
  rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
@@ -91,5 +93,14 @@ iptables -t nat -A OUTPUT -d node1-内网ip  -j DNAT --to-destination node1-公�
 
 iptables -t nat -A OUTPUT -d node2-内网ip  -j DNAT --to-destination node2-公网ip
 
-
+####################NFS 分布式存贮##################
+######################nfs网络分布式存贮##################
+yum  install  nfs-utils rpcbind  -y 
+mkdir /data
+chmod -Rf 777 /data/
+vim /etc/exports
+/data *(rw,no_root_squash,no_all_squash,insecure)
+#生效配置
+exportfs -r
+systemctl restart rpcbind nfs
 
