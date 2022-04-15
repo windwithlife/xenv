@@ -133,7 +133,7 @@ spec:
     - host:  config.zhangyongqiao.com
       http:
         paths:
-          - path:  config.zhangyongqiao.com
+          - path:  /
             pathType: Prefix
             backend:
               service:
