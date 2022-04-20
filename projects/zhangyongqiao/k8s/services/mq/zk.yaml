@@ -29,7 +29,7 @@ spec:
   ports:
     - name: client
       port: 2181
-      nodePort: 31811
+      nodePort: 32181
 ---
 apiVersion: apps/v1
 kind: StatefulSet
