@@ -23,13 +23,15 @@ yum install https://www.elrepo.org/elrepo-release-8.el8.elrepo.noarch.rpm
 
 yum --disablerepo="*" --enablerepo="elrepo-kernel" list available
 hostnamectl 
-yum clean all && yum -y install --enablerepo=elrepo-kernel kernel-ml kernel-ml-devel  kernel-ml-tools kernel-ml-headers
+yum clean all && yum -y install --enablerepo=elrepo-kernel kernel-ml kernel-ml-devel  
 #查看默认加载的内核
 grubby --default-kernel
 
 # 重启生效
 
 reboot
+
+ yum -y install kernel-ml-tools kernel-ml-headers
 
 ########################CentOS 7升级内核#############
  rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org

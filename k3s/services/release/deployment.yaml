@@ -1,0 +1,97 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: drone-server
+  namespace: devops
+spec:
+  selector:
+    matchLabels:
+      app: drone-server
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: drone-server
+    spec:
+      nodeSelector:
+        node-pool: devops
+      containers:
+      - image: drone/drone:latest
+        imagePullPolicy: Always
+        name: drone-server
+        volumeMounts:
+        - name: drone-server-sqlite-db
+          mountPath: /var/lib/drone
+        envFrom:
+        - configMapRef:
+            name: drone-env
+      volumes:
+      - name: drone-server-sqlite-db
+        hostPath:
+          path: /rc/data/drone
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: drone-service
+  namespace: devops
+spec:
+  selector:
+    app: drone-server
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/custom-response-headers: >-
+      Access-Control-Allow-Origin:*||Access-Control-Allow-Methods:GET,POST,OPTIONS||Access-Control-Allow-Headers:DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,token||Access-Control-Expose-Headers:Content-Length,Content-Range,token
+  name: ingress-drone
+  namespace: devops
+spec:
+  rules:
+  - host: example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+              service:
+                name: drone-service
+                port:
+                  number: 80
+        
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kube-runner
+  namespace: devops
+  labels:
+    app.kubernetes.io/name: kube-runner
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: kube-runner
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: kube-runner
+    spec:
+      nodeSelector:
+        node-pool: dev
+      containers:
+      - name: runner
+        image: drone/drone-runner-kube:latest
+        ports:
+        - containerPort: 3000
+        envFrom:
+        - configMapRef:
+            name: kube-runner-env

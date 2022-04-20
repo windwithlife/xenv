@@ -15,19 +15,28 @@
 /usr/local/bin/k3s-uninstall.sh
 /usr/local/bin/k3s-agent-uninstall.sh
 
+export K3S_URL=https://139.224.212.36:6443
+export K3S_TOKEN=K101013db2d501a95d96ce0e38574237da5c51cc4bca7453b0fd15e7c74aa62455e::server:07ef842221bbc87eb1660c62656e57be
+export INSTALL_K3S_EXEC='--node-external-ip 106.15.65.143  --node-ip 172.17.75.211 '
+
+
 export K3S_URL=https://139.196.106.5:6443
-export K3S_TOKEN=K104cd7572cab8ff144aea8469c21e69faae9944c5e6dd6a00035e9cd41866b8e5a::server:7795911d742fb37abccdfb919e54f08f
+export K3S_TOKEN=K1050606edbd4ca3875f48e16ced37a2d534426b0d004422bd4795aecd2bf4df99c::server:a479d2876a3b847a30907efae3ab8c43
 export INSTALL_K3S_EXEC='--node-external-ip 124.222.29.87 --node-ip 10.0.0.3 --flannel-iface wg0 '
 export INSTALL_K3S_EXEC='--node-external-ip 124.222.29.87 --node-ip 10.0.12.14 '
+export INSTALL_K3S_EXEC='--node-external-ip 122.112.206.87 --node-ip  192.168.0.214 '
+export INSTALL_K3S_EXEC='--node-external-ip 159.138.4.99 --node-ip  192.168.0.135 '
+
 
 
 export K3S_URL=https://47.116.70.243:6443
-export K3S_TOKEN=K10f9495ff2ce1a7a08855e826f53defd6b3947de33a2721b57be2241868df2409e::server:2511058cc335bc6e6109a524f53bcbff
+export K3S_TOKEN=K10e0fbdbd1f259add4e5a5035ecdeace36120b02549a72baed51bc7bd0e49e51cb::server:f67264bcfbfa6aa88983872b6e7d830a
 export INSTALL_K3S_EXEC='--node-external-ip 159.138.101.253 --node-ip 192.168.0.245 '
-export INSTALL_K3S_EXEC='--node-external-ip 139.9.75.158 --node-ip 139.9.75.158 '
+export INSTALL_K3S_EXEC='--node-external-ip 139.9.75.158 --node-ip 192.168.0.252 '
+export INSTALL_K3S_EXEC='--node-external-ip 159.138.4.99 --node-ip  192.168.0.135 '
 
 
-
+iptables -t nat -A OUTPUT -d 0.0.12.14  -j DNAT --to-destination 124.222.29.87
 iptables -t nat -A OUTPUT -d 172.17.75.211  -j DNAT --to-destination 106.15.65.143
 
 

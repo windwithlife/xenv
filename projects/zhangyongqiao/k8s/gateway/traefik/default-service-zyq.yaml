@@ -28,9 +28,9 @@ spec:
   tls:
   - secretName: traefik-default-secret
     hosts:
-    - ingress.zhangyongqiao.com
+    - traefik.zhangyongqiao.com
   rules:
-    - host: ingress.zhangyongqiao.com
+    - host: traefik.zhangyongqiao.com
       http:
         paths:
           - path: /

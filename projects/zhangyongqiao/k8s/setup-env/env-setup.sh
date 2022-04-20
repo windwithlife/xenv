@@ -93,5 +93,15 @@ iptables -t nat -A OUTPUT -d node1-内网ip  -j DNAT --to-destination node1-公�
 
 iptables -t nat -A OUTPUT -d node2-内网ip  -j DNAT --to-destination node2-公网ip
 
+#####################NFS
+yum  install  nfs-utils rpcbind  -y 
+mkdir /data
+chmod -Rf 777 /data/
+vim /etc/exports
+/data *(rw,no_root_squash,no_all_squash,insecure)
+#生效配置
+exportfs -r
+systemctl restart rpcbind nfs
+
 
 

@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: drone-env
+  namespace: devops
+data:
+  DRONE_GITHUB_SERVER: https://github.com
+  DRONE_GITHUB_CLIENT_ID: <github-client-id>
+  DRONE_GITHUB_CLIENT_SECRET: <github-client-secret>
+  DRONE_SERVER_HOST: <example.com>
+  DRONE_SERVER_PROTO: http
+  DRONE_RPC_SECRET: <rpc-secret>
+  DRONE_LOGS_TRACE: 'true'
+
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kube-runner-env
+  namespace: devops
+data:
+  DRONE_RPC_PROTO: http
+  DRONE_RPC_HOST: drone-service.devops:8080
+  DRONE_RPC_SECRET: <rpc-secret>
+  DRONE_NAMESPACE_DEFAULT: devops
+  DRONE_RUNNER_CAPACITY: '2'
+  DRONE_RUNNER_NAME: kube-runner 
