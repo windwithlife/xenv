@@ -93,4 +93,5 @@ kubectl apply -f ./cert-clusterissuer-traefik.yaml
  #helm plugin install https://github.com/chartmuseum/helm-pus
 
 
-
+ '--kube-apiserver-arg' \
+        ' feature-gates=RemoveSelfLink=false' \
