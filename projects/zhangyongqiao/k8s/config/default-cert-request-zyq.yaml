@@ -17,7 +17,7 @@ metadata:
   name: admin-default-cert
 spec:
   dnsNames:
-    - admin.zhangyongqiao.com
+    - manager.zhangyongqiao.com
   secretName: admin-default-secret
   issuerRef:
     name: letsencrypt-prod
