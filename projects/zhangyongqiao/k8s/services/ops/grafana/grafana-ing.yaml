@@ -23,7 +23,7 @@ metadata:
     kubernetes.io/ingress.class: "traefik"
 spec:
   rules:
-    - host:  k8s.grafana
+    - host:  grafana.zhangyongqiao.com
       http:
         paths:
           - path:  /
