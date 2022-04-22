@@ -7,6 +7,9 @@ metadata:
     app: grafana
     component: core
 spec:
+  selector:
+    app: grafana
+    component: core
   replicas: 1
   template:
     metadata:
