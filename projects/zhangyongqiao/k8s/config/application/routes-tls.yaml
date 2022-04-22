@@ -77,7 +77,15 @@ spec:
           port: 80
       middlewares:
         - name: cms-stripprefix
-        - name: cors-header      
+        - name: cors-header   
+    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/ocr-service`)
+      kind: Rule
+      services:
+        - name: service-ocr-service
+          port: 80
+      middlewares:
+        - name: cms-stripprefix
+        - name: cors-header             
     - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/java-service`)
       kind: Rule
       services:
@@ -105,6 +113,7 @@ spec:
       - /ugc-service
       - /seo-service
       - /java-service
+      - /ocr-service
      
 
 ---
