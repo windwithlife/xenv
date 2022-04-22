@@ -43,7 +43,7 @@ metadata:
   name: m-default-cert
 spec:
   dnsNames:
-    - m.zhangyongqiao.com
+    - mobile.zhangyongqiao.com
   secretName: m-default-secret
   issuerRef:
     name: letsencrypt-prod
@@ -63,4 +63,3 @@ spec:
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
-
