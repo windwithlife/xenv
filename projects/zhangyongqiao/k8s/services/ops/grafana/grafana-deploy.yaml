@@ -25,6 +25,7 @@ spec:
     metadata:
       labels:
         app: grafana
+        component: core
     spec:
       securityContext:
         fsGroup: 472
