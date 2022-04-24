@@ -57,7 +57,7 @@ kind: ConfigMap
 metadata:
   name: nacos-cm
 data:
-  mysql.host: "mysql5"
+  mysql.host: mysql
   mysql.db.name: "nacos_devtest"
   mysql.port: "3306"
   mysql.user: "nacos"
@@ -74,19 +74,7 @@ spec:
     metadata:
       labels:
         app: nacos
-      annotations:
-        pod.alpha.kubernetes.io/initialized: "true"
     spec:
-      affinity:
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            - labelSelector:
-                matchExpressions:
-                  - key: "app"
-                    operator: In
-                    values:
-                      - nacos
-              topologyKey: "kubernetes.io/hostname"
       containers:
         - name: k8snacos
           imagePullPolicy: Always
