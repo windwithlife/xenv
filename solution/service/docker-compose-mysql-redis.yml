@@ -6,21 +6,6 @@ networks:
 
 services:
 
-  reverse-proxy:
-    # 官方的 Traefik 2.0 Docker 镜像
-    image: traefik:v2.0
-    # 开启 web UI 并且告诉 Traefik 监听 Docker
-    command: --api.insecure=true --providers.docker
-    ports:
-      # HTTP 端口
-      - "9999:80"
-      # Web UI 端口(通过 --api.insecure=true 启用)
-      - "8080:8080"
-    volumes:
-      # 这样 Traefik 可以监听 Docker 事件
-      - /var/run/docker.sock:/var/run/docker.sock
-    networks:
-      - service-network
   # 使用mysql
   service_mysql:
     image: mysql
@@ -54,75 +39,5 @@ services:
       - ./data/redis:/data:rw
     command:
       /bin/bash -c "redis-server /usr/local/etc/redis/redis.conf "
-  #Emqx(mqtt-server)
-  emqx:
-    image: "emqx/emqx"
-    container_name: "emqx-latest"
-    networks:
-      - service-network
-    environment:
-      - EMQX_LOADED_PLUGINS="emqx_management,emqx_auth_http,emqx_dashboard"
-      - EMQX_DASHBOARD__DEFAULT_USER__LOGIN=admin
-      - EMQX_DASHBOARD__DEFAULT_USER__PASSWORD=public
-      - EMQX_NODE__MAX_PORTS=65535
-      - EMQX_MQTT__MAX_PACKET_SIZE=16MB
-    ports:
-     - 18083:18083
-     - 1883:1883
-     - 8081:8081
-     - 8883:8883
-    volumes:
-     - ./emqx/logs:/opt/emqx/log
-     - /etc/localtime:/etc/localtime
-    restart: always
-
-    # emqx1:
-    #   image: emqx/emqx
-    #   container_name: emqx1
-    #   volumes:
-    #     - ./emqx:/opt/emqx
-    #   ports:
-    #     - 1883:1883
-    #     - 8083:8083
-    #     - 4369:4369
-    #     - 18083:18083
-    #   environment:
-    #     - EMQX_NAME=mq01
-    #     - EMQX_HOST=emqx1
-    #     - EMQX_NODE__NAME=mq01@emqx1
-    #     - EMQX_LISTENER__TCP_EXTERNAL=1883
-    #     - EMQX_NODE__DIST_LISTEN_MIN=7369
-    #     - EMQX_NODE__DIST_LISTEN_MAX=7379
-    #     - EMQX_JOIN_CLUSTER="mq01@emqx1"
-    #     - EMQX_CLUSTER__NAME=emqxcl
-    #     - EMQX_CLUSTER__DISCOVERY=static
-    #     - EMQX_CLUSTER__STATIC__SEEDS=mq01@emqx1,mq02@emqx2
-    #   restart: always
-    #   networks:
-    #     - service-network
   
-    # emqx2:
-    #   image: emqx/emqx
-    #   container_name: emqx2
-    #   volumes:
-    #     - ./emqx:/opt/emqx
-    #   ports:
-    #     - 1884:1883
-    #     - 8084:8083
-    #     - 4370:4369
-    #     - 18084:18083
-    #   environment:
-    #     - EMQX_NAME=mq02
-    #     - EMQX_HOST=emqx2
-    #     - EMQX_NODE__NAME=mq02@emqx2
-    #     - EMQX_LISTENER__TCP_EXTERNAL=1883
-    #     - EMQX_NODE__DIST_LISTEN_MIN=7369
-    #     - EMQX_NODE__DIST_LISTEN_MAX=7379
-    #     - EMQX_JOIN_CLUSTER="mq01@emqx2"
-    #     - EMQX_CLUSTER__NAME=emqxcl
-    #     - EMQX_CLUSTER__DISCOVERY=static
-    #     - EMQX_CLUSTER__STATIC__SEEDS=mq01@emqx1,mq02@emqx2
-    #   restart: always
-    #   networks:
-    #     - service-network
 
