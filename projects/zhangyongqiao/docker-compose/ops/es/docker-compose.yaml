@@ -5,6 +5,7 @@ services:
     container_name: elk_elasticsearch  #定义容器名称
     restart: always  #开机启动，失败也会一直重启
     environment:
+      - "xpack.monitoring.collection.enabled=false"
       - "cluster.name=elasticsearch" #设置集群名称为elasticsearch
       - "discovery.type=single-node" #以单一节点模式启动
       - "ES_JAVA_OPTS=-Xms512m -Xmx1024m" #设置使用jvm内存大小
