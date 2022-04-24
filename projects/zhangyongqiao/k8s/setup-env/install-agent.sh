@@ -21,7 +21,7 @@ export INSTALL_K3S_EXEC='--node-external-ip 106.15.65.143  --node-ip 172.17.75.2
 
 
 export K3S_URL=https://139.196.106.5:6443
-export K3S_TOKEN=K1050606edbd4ca3875f48e16ced37a2d534426b0d004422bd4795aecd2bf4df99c::server:a479d2876a3b847a30907efae3ab8c43
+export K3S_TOKEN=K104f9c2ebbaee21731be8884a8a3a25fe7a7535faa4114cea88e9abfa3d0144c13::server:70227eba0c9543b360e9252a460c978e
 export INSTALL_K3S_EXEC='--node-external-ip 124.222.29.87 --node-ip 10.0.0.3 --flannel-iface wg0 '
 export INSTALL_K3S_EXEC='--node-external-ip 124.222.29.87 --node-ip 10.0.12.14 '
 export INSTALL_K3S_EXEC='--node-external-ip 122.112.206.87 --node-ip  192.168.0.214 '
