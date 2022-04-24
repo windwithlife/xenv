@@ -78,7 +78,7 @@ spec:
       containers:
         - name: k8snacos
           imagePullPolicy: Always
-          image: nacos/nacos-server:latest
+          image: nacos/nacos-server:2.0.2
           resources:
             requests:
               memory: "2Gi"
