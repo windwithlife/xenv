@@ -58,7 +58,7 @@ metadata:
   name: nacos-cm
 data:
   mysql.host: mysql
-  mysql.db.name: "nacos_devtest"
+  mysql.db.name: "nacos_config"
   mysql.port: "3306"
   mysql.user: "nacos"
   mysql.password: "nacos"

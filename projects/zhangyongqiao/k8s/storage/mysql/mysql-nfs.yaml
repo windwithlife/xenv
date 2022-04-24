@@ -25,7 +25,7 @@ spec:
         - name: MYSQL_ROOT_PASSWORD
           value: "root_password"
         - name: MYSQL_DATABASE
-          value: "nacos_devtest"
+          value: "nacos_config"
         - name: MYSQL_USER
           value: "nacos"
         - name: MYSQL_PASSWORD
