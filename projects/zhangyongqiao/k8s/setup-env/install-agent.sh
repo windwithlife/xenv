@@ -29,6 +29,7 @@ export INSTALL_K3S_EXEC='--node-external-ip 159.138.4.99 --node-ip  192.168.0.13
 
 
 
+
 export K3S_URL=https://47.116.70.243:6443
 export K3S_TOKEN=K10e0fbdbd1f259add4e5a5035ecdeace36120b02549a72baed51bc7bd0e49e51cb::server:f67264bcfbfa6aa88983872b6e7d830a
 export INSTALL_K3S_EXEC='--node-external-ip 159.138.101.253 --node-ip 192.168.0.245 '

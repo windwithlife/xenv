@@ -22,6 +22,10 @@ data:
   REDIS_PORT: "6379"
   REDIS_PASSWORD: "12345678"
 
+  #Skywalking global config
+  SW_AGENT_COLLECTOR_BACKEND_SERVICES: "47.116.67.226:11800"
+
+
   CONFIG_SERVER_ADDRESS: "47.116.67.226:8848"
   CONFIG_SERVER_USERNAME: nacos
   CONFIG_SERVER_PASSWORD: nacos
@@ -34,10 +38,20 @@ data:
   DISCOVERY_SERVER_NAMESPACE: prod-id
   DISCOVERY_SERVER_GROUP_ID:  public
 
+
   #database section
   DEMO_DATASOURCE_URL: jdbc:mysql://db.zhangyongqiao.com:3306/demodb?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8
   DEMO_DATASOURCE_USERNAME: root
   DEMO_DATASOURCE_PASSWORD: root_password
+
+  PROD_DATASOURCE_URL: jdbc:mysql://db.zhangyongqiao.com:3306/prod?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8
+  PROD_DATASOURCE_USERNAME: root
+  PROD_DATASOURCE_PASSWORD: root_password
+
+
+  PROJECT_DATASOURCE_URL: jdbc:mysql://db.zhangyongqiao.com:3306/workorder?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8
+  PROJECT_DATASOURCE_USERNAME: root
+  PROJECT_DATASOURCE_PASSWORD: root_password
 
   SEO_DATASOURCE_URL: jdbc:mysql://db.zhangyongqiao.com:3306/seodb?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8
   SEO_DATASOURCE_USERNAME: root
@@ -59,14 +73,7 @@ data:
   RELEASE_DATASOURCE_USERNAME: root
   RELEASE_DATASOURCE_PASSWORD: root_password
 
-  PROD_DATASOURCE_URL: jdbc:mysql://db.zhangyongqiao.com:3306/prod?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8
-  PROD_DATASOURCE_USERNAME: root
-  PROD_DATASOURCE_PASSWORD: root_password
-
-
-  PROJECT_DATASOURCE_URL: jdbc:mysql://db.zhangyongqiao.com:3306/workorder?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8
-  PROJECT_DATASOURCE_USERNAME: root
-  PROJECT_DATASOURCE_PASSWORD: root_password
+ 
 
 
  
