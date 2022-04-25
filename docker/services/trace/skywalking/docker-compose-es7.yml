@@ -5,7 +5,7 @@ services:
     container_name: elasticsearch
     restart: always
     ports:
-      - 9200:9200
+      - 19200:9200
     environment:
       - "TAKE_FILE_OWNERSHIP=true" #volumes 挂载权限 如果不想要挂载es文件改配置可以删除
       - "discovery.type=single-node" #单机模式启动
@@ -32,7 +32,7 @@ services:
       - 12800:12800
     environment:
       SW_STORAGE: elasticsearch  # 指定ES版本
-      SW_STORAGE_ES_CLUSTER_NODES: elasticsearch:9200
+      SW_STORAGE_ES_CLUSTER_NODES: elasticsearch:19200
       TZ: Asia/Shanghai
     volumes:
      - ./oap/conf/alarm-settings.yml:/skywalking/config/alarm-settings.yml
