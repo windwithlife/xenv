@@ -34,8 +34,8 @@ services:
       SW_STORAGE: elasticsearch  # 指定ES版本
       SW_STORAGE_ES_CLUSTER_NODES: elasticsearch:19200
       TZ: Asia/Shanghai
-    volumes:
-     - ./oap/conf/alarm-settings.yml:/skywalking/config/alarm-settings.yml
+    # volumes:
+    #  - ./oap/conf/alarm-settings.yml:/skywalking/config/alarm-settings.yml
   skywalking-ui:
     image: apache/skywalking-ui:8.9.1
     container_name: skywalking-ui
