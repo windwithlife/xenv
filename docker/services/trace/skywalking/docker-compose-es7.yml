@@ -32,7 +32,7 @@ services:
       - 12800:12800
     environment:
       SW_STORAGE: elasticsearch  # 指定ES版本
-      SW_STORAGE_ES_CLUSTER_NODES: elasticsearch:19200
+      SW_STORAGE_ES_CLUSTER_NODES: elasticsearch:9200
       TZ: Asia/Shanghai
     # volumes:
     #  - ./oap/conf/alarm-settings.yml:/skywalking/config/alarm-settings.yml
