@@ -60,15 +60,34 @@ spec:
       protocol: TCP
       port: 8081
       targetPort: 8081
-      nodePort: 30081
+      nodePort: 30881
     - name: docker
       protocol: TCP
       port: 8082
       targetPort: 8082
-      nodePort: 30082
+      nodePort: 30882
     - name: maven
       protocol: TCP
       port: 8083
       targetPort: 8083
-      nodePort: 30083
+      nodePort: 30883
 
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-maven
+  annotations:
+    kubernetes.io/ingress.class: "traefik"
+spec:
+  rules:
+    - host:  maven.zhangyongqiao.com
+      http:
+        paths:
+          - path:  /
+            pathType: Prefix
+            backend:
+              service:
+                name: nexus-svc
+                port:
+                  number: 8081
