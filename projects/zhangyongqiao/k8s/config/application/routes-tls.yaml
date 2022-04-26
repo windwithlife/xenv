@@ -135,6 +135,8 @@ spec:
       - "Content-Type"
       - "token"
       - "x-requested-with"
+      - "sw8"
+      - "sw9"
     accessControlAllowCredentials: true
     addVaryHeader: true
 
