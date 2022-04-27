@@ -6,7 +6,7 @@ metadata:
   name: kafka-headless
   namespace: mq
   labels:
-    app: kafka
+    app: kafka-headless
 spec:
   type: ClusterIP
   clusterIP: None
@@ -24,7 +24,7 @@ metadata:
   name: kafka-svc
   namespace: mq
   labels:
-    app: kafka
+    app: kafka-svc
 spec:
   type: NodePort
   ports:
