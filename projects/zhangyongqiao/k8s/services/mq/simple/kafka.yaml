@@ -80,7 +80,7 @@ spec:
         - name: KAFKA_CFG_LISTENERS
           value: "PLAINTEXT://:$(KAFKA_PORT_NUMBER)"
         - name: KAFKA_CFG_ADVERTISED_LISTENERS
-          value: 'PLAINTEXT://$(MY_POD_NAME).kafka-headless:$(KAFKA_PORT_NUMBER)'
+          value: 'PLAINTEXT://$(MY_POD_NAME).kafka-headless.mq:$(KAFKA_PORT_NUMBER)'
         - name: ALLOW_PLAINTEXT_LISTENER
           value: "yes"
         - name: KAFKA_HEAP_OPTS
