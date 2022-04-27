@@ -130,15 +130,15 @@ spec:
           mountPath: /bitnami/zookeeper
   volumeClaimTemplates:
     - apiVersion: v1
-    kind: PersistentVolumeClaim
-    metadata:
-      name: data  # 名字与上面定义的一致
-    spec:
-      accessModes:
-      - ReadWriteMany
-      storageClassName: managed-nfs-storage   # storageClassName
-      volumeMode: Filesystem
-      resources:
+      kind: PersistentVolumeClaim
+      metadata:
+        name: data  # 名字与上面定义的一致
+      spec:
+        accessModes:
+        - ReadWriteMany
+        storageClassName: managed-nfs-storage   # storageClassName
+        volumeMode: Filesystem
+        resources:
         requests:
           storage: 3Gi
 
