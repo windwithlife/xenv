@@ -139,6 +139,6 @@ spec:
         storageClassName: managed-nfs-storage   # storageClassName
         volumeMode: Filesystem
         resources:
-        requests:
-          storage: 3Gi
+          requests:
+            storage: 3Gi
 
