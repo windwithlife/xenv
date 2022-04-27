@@ -4,6 +4,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: kafka-headless
+  namespace: mq
   labels:
     app: kafka
 spec:
@@ -21,6 +22,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: kafka-svc
+  namespace: mq
   labels:
     app: kafka
 spec:
@@ -37,6 +39,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: "kafka"
+  namespace: mq
   labels:
     app: kafka
 spec:
