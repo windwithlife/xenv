@@ -92,22 +92,6 @@ spec:
         ports:
         - name: kafka
           containerPort: 9092
-        livenessProbe:
-          tcpSocket:
-            port: kafka
-          initialDelaySeconds: 10
-          periodSeconds: 10
-          timeoutSeconds: 5
-          successThreshold: 1
-          failureThreshold: 2
-        readinessProbe:
-          tcpSocket:
-            port: kafka
-          initialDelaySeconds: 5
-          periodSeconds: 10
-          timeoutSeconds: 5
-          successThreshold: 1
-          failureThreshold: 6
         volumeMounts:
         - name: data
           mountPath: /bitnami/kafka
