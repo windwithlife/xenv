@@ -55,22 +55,22 @@ spec:
         #   requests:
         #     cpu: 2000m
         #     memory: 512Mi
-        livenessProbe:
-          initialDelaySeconds: 30
-          periodSeconds: 10
-          timeoutSeconds: 5
-          successThreshold: 1
-          failureThreshold: 3
-          exec:
-            command: ["mysqladmin", "-uroot", "-p${MYSQL_ROOT_PASSWORD}", "ping"]
-        readinessProbe:  
-          initialDelaySeconds: 30
-          periodSeconds: 30
-          timeoutSeconds: 20
-          successThreshold: 1
-          failureThreshold: 3
-          exec:
-            command: ["mysqladmin", "-uroot", "-p${MYSQL_ROOT_PASSWORD}", "ping"]
+        # livenessProbe:
+        #   initialDelaySeconds: 30
+        #   periodSeconds: 10
+        #   timeoutSeconds: 5
+        #   successThreshold: 1
+        #   failureThreshold: 3
+        #   exec:
+        #     command: ["mysqladmin", "-uroot", "-p${MYSQL_ROOT_PASSWORD}", "ping"]
+        # readinessProbe:  
+        #   initialDelaySeconds: 30
+        #   periodSeconds: 30
+        #   timeoutSeconds: 20
+        #   successThreshold: 1
+        #   failureThreshold: 3
+        #   exec:
+        #     command: ["mysqladmin", "-uroot", "-p${MYSQL_ROOT_PASSWORD}", "ping"]
         volumeMounts:
         - name: data
           mountPath: /var/lib/mysql
