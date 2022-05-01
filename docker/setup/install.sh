@@ -4,6 +4,13 @@
 
 #yum remove docker  docker-common docker-selinux docker-engine
 
+rename '.repo' '.repo.bak' /etc/yum.repos.d/*.repo 
+wget https://mirrors.aliyun.com/repo/Centos-vault-8.5.2111.repo -O /etc/yum.repos.d/Centos-vault-8.5.2111.repo
+wget https://mirrors.aliyun.com/repo/epel-archive-8.repo -O /etc/yum.repos.d/epel-archive-8.repo
+
+yum clean all && yum makecache
+
+
 yum install -y yum-utils
 yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
 yum list docker-ce --showduplicates | sort -r
