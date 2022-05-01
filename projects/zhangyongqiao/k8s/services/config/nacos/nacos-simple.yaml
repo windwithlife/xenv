@@ -95,10 +95,6 @@ spec:
         - name: nacos
           imagePullPolicy: Always
           image: nacos/nacos-server:latest
-          resources:
-            requests:
-              memory: "2Gi"
-              cpu: "500m"
           ports:
             - containerPort: 8848
               name: client-port
