@@ -81,9 +81,6 @@ spec:
           readOnly: true
           mountPath: /etc/localtime
       volumes:
-      - name: data
-        persistentVolumeClaim:
-          claimName: mysql8-pvc
       - name: config      
         configMap:
           name: mysql-config
@@ -91,3 +88,16 @@ spec:
         hostPath:
           type: File
           path: /etc/localtime
+  volumeClaimTemplates:
+     - apiVersion: v1
+       kind: PersistentVolumeClaim
+       metadata:
+         name: data  # 名字与上面定义的一致
+       spec:
+         accessModes:
+          - ReadWriteMany
+         storageClassName: managed-nfs-storage   # storageClassName
+         volumeMode: Filesystem
+         resources:
+           requests:
+             storage: 5Gi        
