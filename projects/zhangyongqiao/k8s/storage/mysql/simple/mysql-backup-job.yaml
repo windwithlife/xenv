@@ -29,8 +29,7 @@ spec:
               volumeMounts:
                 - name: backup-config
                   mountPath: /var/db/script
-                - name: data                #应用运行的数据的存储的 NFS 服务器地址
-                  mountPath: /data
+              
                 - name: data-backup         #存储备份数据的 NFS 服务器地址     
                   mountPath: /data-backup
                 - name: time-zone           #挂载系统时区，防止时区产生的影响
