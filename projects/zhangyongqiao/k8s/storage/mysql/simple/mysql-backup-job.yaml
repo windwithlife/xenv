@@ -22,10 +22,10 @@ spec:
               image: 'busybox:1.32.0'       #使用 busybox 镜像执行备份操作
               command:                      #配置要执行的备份命令
                 - sh
-                - '/var/db/srcipt/backup.sh'            
+                - '/var/backup.sh'            
               volumeMounts:
                 - name: mysql-backup-sh
-                  mountPath: /var/db/script/backup.sh
+                  mountPath: /var/backup.sh
                   subPath: backup.sh
                 - name: time-zone           #挂载系统时区，防止时区产生的影响
                   mountPath: /etc/localtime
