@@ -1,12 +1,13 @@
-kind: CronJob
+kind: Job
 apiVersion: batch/v1beta1
 metadata:
   name: data-backup
-  namespace: devops
   labels:
     app: data-backup
 spec:
       template:
+        metadata:
+          name: data-backup-demo
         spec:
           volumes:
             - name: backup-config
