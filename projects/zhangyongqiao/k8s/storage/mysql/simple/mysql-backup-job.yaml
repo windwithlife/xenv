@@ -7,7 +7,7 @@ metadata:
 spec:
       template:
         metadata:
-          name: data-backup-demo
+          name: data-backup
         spec:
           volumes:
             - name: backup-config
