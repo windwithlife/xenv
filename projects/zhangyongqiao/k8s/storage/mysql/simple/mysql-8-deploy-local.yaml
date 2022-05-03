@@ -33,7 +33,9 @@ spec:
     metadata:
       labels:
         app: mysql
-    spec:     
+    spec:  
+      nodeSelector:
+        database: support
       containers:
       - name: mysql
         image: mysql:8.0.19
