@@ -43,9 +43,9 @@ spec:
         - name: MYSQL_ROOT_PASSWORD    ## 配置Root用户默认密码
           value: "root_password"
         - name: MYSQL_DATABASE
-          value: "production"
+          value: "prod"
         - name: MYSQL_USER
-          value: "client-user"
+          value: "client"
         - name: MYSQL_PASSWORD
           value: "123456"  
         # resources:
@@ -82,8 +82,9 @@ spec:
           mountPath: /etc/localtime
       volumes:
       - name: data
-        persistentVolumeClaim:
-          claimName: mysql8-pvc
+        nfs:
+          server: 139.196.106.5
+          path: /data/mysql8
       - name: config      
         configMap:
           name: mysql-config
