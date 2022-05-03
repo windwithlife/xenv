@@ -19,7 +19,7 @@ spec:
                 path: /etc/localtime
           containers:
             - name: data-backup
-              image: 'busybox:1.32.0'       #使用 busybox 镜像执行备份操作
+              image:  nacos/nacos-mysql:5.7      #使用 busybox 镜像执行备份操作
               command:                      #配置要执行的备份命令
                 - sh
                 - '/var/backup.sh'            

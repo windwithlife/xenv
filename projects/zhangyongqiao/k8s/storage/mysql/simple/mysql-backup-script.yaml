@@ -15,7 +15,7 @@ data:
     #将要备份的数据库
     database_name=test
     #备份保存路径
-    backup_path=~/backup/mysql
+    backup_path=/data-backup
     backup_filename=$backup_path/latest.sql;
     backup_text_filename=$backup_path/latest.txt;
  
