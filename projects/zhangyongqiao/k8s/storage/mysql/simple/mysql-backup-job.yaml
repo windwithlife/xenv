@@ -27,7 +27,7 @@ spec:
                 - sh
                 - '/var/backup.sh' 
               env:
-                - name: BACKUP-PATH
+                - name: BACKUP_PATH
                   value: "simplex"             
               volumeMounts:
                 - name: mysql-backup-sh
