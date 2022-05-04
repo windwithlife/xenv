@@ -16,7 +16,7 @@ data:
     then
        backup_path=/data-backup
     else
-       backup_path=/data-backup/$BACKUP_PATH
+       backup_path=/data-backup/$DATABASE_BACKUP_PATH
     fi
 
     echo BACKUP_PATH_LOCATE $backup_path
