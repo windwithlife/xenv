@@ -6,8 +6,13 @@ metadata:
 data:
   backup.sh: |
     #/bin/bash
+
+    #保存备份文件最多个数
+    count=10
+
+    #备份保存路径
     backup_path=/data-backup
-    if [ -z '$BACKUP_PATH' ];
+    if [ -z '$DATABASE_BACKUP_PATH' ];
     then
        backup_path=/data-backup
     else
@@ -16,26 +21,24 @@ data:
 
     echo BACKUP_PATH_LOCATE $backup_path
     #备份保存路径
-    #backup_path=/data-backup
+  
 
 
-    #将要备份的数据库
-    database_name=test
+    
 
     #host
-    host=$BACKUP_SERVER_HOST
+    host=$DATABASE_BACKUP_SERVER_HOST
     #用户名
-    username=$BACKUP_SERVER_USER
+    username=$DATABASE_BACKUP_SERVER_USER
     #密码
-    password=$BACKUP_SERVER_PASSWORD
+    password=$DATABASE_BACKUP_SERVER_PASSWORD
     
+    #将要备份的数据库
+    database_name=test
     
     backup_filename=$backup_path/latest.sql;
     backup_text_filename=$backup_path/latest.txt;
  
-    #保存备份文件最多个数
-    count=3
-
     #日期
     date_time=`date +%Y-%m-%d-%H-%M`
  
@@ -46,12 +49,12 @@ data:
       chmod 777 -R $backup_path;
     fi
     #开始备份
-    if [ -z "$BACKUP_DATABASE" ];
+    if [ -z "$BACKUP_DATABASE_NAME" ];
     then
       database_name=--all-databases;
       backup_filename=all-$date_time;
     else
-      database_name=$BACKUP_DATABASE;
+      database_name=$BACKUP_DATABASE_NAME;
       backup_filename=$database_name-$date_time;
     fi
 

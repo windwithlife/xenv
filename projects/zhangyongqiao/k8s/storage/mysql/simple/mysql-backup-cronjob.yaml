@@ -5,7 +5,7 @@ metadata:
   labels:
     app: data-backup
 spec:
-  schedule: 0 10 * * *
+  schedule: 0 4 * * *
   concurrencyPolicy: Allow
   suspend: false
   successfulJobsHistoryLimit: 1
@@ -17,7 +17,7 @@ spec:
           volumes:
             - name: backup-config
               configMap:
-                name: mysql-backup-config
+                name: database-backup-config
             - name: data-backup-v
               nfs:
                 server: 139.196.106.5      #挂入 NFS 存储2
@@ -28,15 +28,18 @@ spec:
           containers:
             - name: data-backup
               image:  mysql:8.0.19
-              env:
-                - name: BACKUP_PATH
-                  value: "things"  
-                - name: BACKUP_SERVER_HOST
-                  value: "db.zhangyongqiao.com"    
-                - name: BACKUP_SERVER_USER
-                  value: "root"
-                - name: BACKUP_SERVER_PASSWORD
-                  value: "root_password"
+              envFrom:
+              - configMapRef:
+                  name: common-config
+              # env:
+              #   - name: DATABASE_BACKUP_PATH
+              #     value: "things"  
+              #   - name: DATABASE_BACKUP_SERVER_HOST
+              #     value: "db.zhangyongqiao.com"    
+              #   - name: DATABASE_BACKUP_SERVER_USER
+              #     value: "root"
+              #   - name: DATABASE_BACKUP_SERVER_PASSWORD
+              #     value: "root_password"
               command:                      #配置要执行的备份命令
                 - sh
                 - '/var/backup.sh'          

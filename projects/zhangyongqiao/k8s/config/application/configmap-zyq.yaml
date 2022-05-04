@@ -41,6 +41,11 @@ data:
 
 
   #database section
+  DATABASE_BACKUP_SERVER_HOST: "db.zhangyongqiao.com"
+  DATABASE_BACKUP_SERVER_USER: root
+  DATABASE_BACKUP_SERVER_PASSWORD: root_password
+  DATABASE_BACKUP_PATH: simplex
+
   PROD_DATASOURCE_URL: jdbc:mysql://db.zhangyongqiao.com:3306/prod?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8
   PROD_DATASOURCE_USERNAME: root
   PROD_DATASOURCE_PASSWORD: root_password
