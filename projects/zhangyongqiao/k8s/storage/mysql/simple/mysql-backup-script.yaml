@@ -67,7 +67,7 @@ data:
     #开始压缩
     tar -zcvf $backup_filename.tar.gz $backup_filename.sql
     #删除源文件
-    rm -rf $backup_filename.sqlls 
+    rm -rf $backup_filename.sql
     #更新备份日志
     echo "create $backup_filename.sql.tar.gz" >> $backup_path/dump.log
  
