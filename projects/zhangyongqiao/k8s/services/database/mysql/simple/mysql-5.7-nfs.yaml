@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: mysql5
+  labels:
+    name: mysql5
+spec:
+  replicas: 1
+  selector:
+    name: mysql5
+  template:
+    metadata:
+      labels:
+        name: mysql5
+    spec:
+      containers:
+      - name: mysql
+        image: nacos/nacos-mysql:5.7
+        ports:
+        - containerPort: 3306
+        volumeMounts:
+        - name: mysql-data
+          mountPath: /var/lib/mysql
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "root_password"
+        - name: MYSQL_DATABASE
+          value: "nacos_config"
+        - name: MYSQL_USER
+          value: "nacos"
+        - name: MYSQL_PASSWORD
+          value: "nacos"
+      volumes:
+      - name: mysql-data
+        nfs:
+          server: 139.196.106.5
+          path: /data/mysql
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql5
+  labels:
+    name: mysql
+spec:
+  type: NodePort
+  ports:
+  - port: 3306
+    targetPort: 3306
+    nodePort: 30306
+  selector:
+    name: mysql5

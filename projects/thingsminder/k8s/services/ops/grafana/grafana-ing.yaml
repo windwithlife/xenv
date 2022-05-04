@@ -1,0 +1,35 @@
+# apiVersion: extensions/v1beta1
+# kind: Ingress
+# metadata:
+#    name: grafana
+#    namespace: kube-system
+# spec:
+#    rules:
+#    - host: k8s.grafana
+#      http:
+#        paths:
+#        - path: /
+#          backend:
+#           serviceName: grafana
+#           servicePort: 3000
+# ---
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: grafana
+  namespace: kube-system
+  annotations:
+    kubernetes.io/ingress.class: "traefik"
+spec:
+  rules:
+    - host:  grafana.zhangyongqiao.com
+      http:
+        paths:
+          - path:  /
+            pathType: Prefix
+            backend:
+              service:
+                name:  grafana
+                port:
+                  number: 3000
