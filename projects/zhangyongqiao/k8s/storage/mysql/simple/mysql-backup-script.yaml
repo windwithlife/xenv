@@ -46,7 +46,6 @@ data:
     if [ ! -d $backup_path ]; 
     then 
       mkdir -p $backup_path;
-      chmod 777 -R $backup_path;
     fi
     #开始备份
     if [ -z "$BACKUP_DATABASE_NAME" ];
