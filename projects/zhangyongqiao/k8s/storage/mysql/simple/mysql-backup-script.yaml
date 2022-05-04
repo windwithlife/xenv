@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: mysql-backup-config
+  name: mysql-backup-script-config
 data:
   backup.sh: |
     #/bin/bash

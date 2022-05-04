@@ -15,9 +15,9 @@ spec:
       template:
         spec:
           volumes:
-            - name: backup-config
+            - name: backup-script-config
               configMap:
-                name: database-backup-config
+                name: mysql-backup-script-config
             - name: data-backup-v
               nfs:
                 server: 139.196.106.5      #挂入 NFS 存储2
@@ -30,7 +30,7 @@ spec:
               image:  mysql:8.0.19
               envFrom:
               - configMapRef:
-                  name: common-config
+                  name:  database-backup-config
               # env:
               #   - name: DATABASE_BACKUP_PATH
               #     value: "things"  
@@ -44,7 +44,7 @@ spec:
                 - sh
                 - '/var/backup.sh'          
               volumeMounts:
-                - name: backup-config
+                - name: backup-script-config
                   mountPath: /var/backup.sh
                   subPath: backup.sh
                 - name: data-backup-v         #存储备份数据的 NFS 服务器地址     
