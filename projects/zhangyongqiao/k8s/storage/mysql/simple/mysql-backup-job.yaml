@@ -28,7 +28,13 @@ spec:
                 - '/var/backup.sh' 
               env:
                 - name: BACKUP_PATH
-                  value: "simplex"             
+                  value: "simplex"  
+                - name: BACKUP_SERVER
+                  value: "db.zhangyongqiao.com"    
+                - name: BACKUP_SERVER_USER
+                  value: "root"
+                - name: BACKUP_SERVER_PASSWORD
+                  value: "root_passowrd"                       
               volumeMounts:
                 - name: mysql-backup-sh
                   mountPath: /var/backup.sh

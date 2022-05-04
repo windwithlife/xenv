@@ -7,7 +7,7 @@ data:
   backup.sh: |
     #/bin/bash
     
-    echo input-path $BACKUP_PATH
+   
     if [ -z '$BACKUP_PATH' ];
     then
        backup_path=/data-backup
@@ -15,7 +15,7 @@ data:
        backup_path=/data-backup/$BACKUP_PATH
     fi
 
-    echo finally $backup_path
+    echo BACKUP_PATH_LOCATE $backup_path
     #备份保存路径
     #backup_path=/data-backup
 
@@ -25,10 +25,13 @@ data:
 
     #host
     host=db.zhangyongqiao.com
+    host=$BACKUP_SERVER_HOST
     #用户名
     username=root
+    username=$BACKUP_SERVER_USER
     #密码
     password=root_password
+    password=$BACKUP_SERVER_PASSWORD
     
     
     backup_filename=$backup_path/latest.sql;
@@ -46,22 +49,25 @@ data:
       mkdir -p $backup_path; 
     fi
     #开始备份
-    if [ -z "$1" ];
+    if [ -z "$BACKUP_DATABASE" ];
     then
       database_name=--all-databases;
-      backup_filename=$backup_path/all-$date_time;
+      backup_filename=all-$date_time;
     else
-      database_name=$1;
-      backup_filename=$backup_path/$database_name-$date_time;
+      database_name=$BACKUP_DATABASE;
+      backup_filename=$database_name-$date_time;
     fi
+
+    echo BACKUP_PATH_LOCATE; $backup_path
+    echo BACKUP_DATABASE: $database_name
+
     #mysqldump -u $username -p$password --master-data=2 --default-character-set=utf8 --single-transaction --all-databases  > $backup_path/$database_name-$date_time.sql
-    echo $backup_filename $database_name
+    cd $backup_path
     mysqldump -h$host -u $username -p$password --single-transaction $database_name > $backup_filename.sql
     #开始压缩
-    cd $backup_path
     tar -zcvf $backup_filename.tar.gz $backup_filename.sql
     #删除源文件
-    rm -rf $backup_filename.sql
+    rm -rf $backup_filename.sqlls 
     #更新备份日志
     echo "create $backup_filename.sql.tar.gz" >> $backup_path/dump.log
  
