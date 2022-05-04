@@ -7,10 +7,19 @@ data:
   backup.sh: |
     #/bin/bash
     
-    echo test subpath$BACKUP_PATH
+    echo input-path $BACKUP_PATH
+    if [ -z '$BACKUP_PATH' ];
+    then
+       backup_path=/data-backup
+    else
+       backup_path=/data-backup/$BACKUP_PATH
+    fi
 
+    echo finally $backup_path
     #备份保存路径
-    backup_path=/data-backup
+    #backup_path=/data-backup
+
+
     #将要备份的数据库
     database_name=test
 
