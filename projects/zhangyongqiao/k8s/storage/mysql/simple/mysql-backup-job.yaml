@@ -22,10 +22,13 @@ spec:
                 path: /etc/localtime
           containers:
             - name: data-backup
-              image:  mysql:8.0.19      #使用 busybox 镜像执行备份操作
-              command:                      #配置要执行的备份命令
+              image:  mysql:8.0.19     
+              command:                      
                 - sh
-                - '/var/backup.sh'            
+                - '/var/backup.sh' 
+              env:
+                - name: BACKUP-PATH
+                  value: "simplex"             
               volumeMounts:
                 - name: mysql-backup-sh
                   mountPath: /var/backup.sh

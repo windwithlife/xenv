@@ -6,21 +6,27 @@ metadata:
 data:
   backup.sh: |
     #/bin/bash
+    
+    echo test subpath-->$BACKUP-PATH
+
+    #备份保存路径
+    backup_path=/data-backup
+    #将要备份的数据库
+    database_name=test
+
     #host
     host=db.zhangyongqiao.com
     #用户名
     username=root
     #密码
     password=root_password
-    #将要备份的数据库
-    database_name=test
-    #备份保存路径
-    backup_path=/data-backup
+    
+    
     backup_filename=$backup_path/latest.sql;
     backup_text_filename=$backup_path/latest.txt;
  
     #保存备份文件最多个数
-    count=20
+    count=3
 
     #日期
     date_time=`date +%Y-%m-%d-%H-%M`

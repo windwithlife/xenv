@@ -22,21 +22,20 @@ spec:
             - name: data-backup
               nfs:
                 server: 139.196.106.5      #挂入 NFS 存储2
-                path: /data/backup/mysql/
+                path: /data/backup/mysql/things/
             - name: time-zone               #挂入宿主机的时区文件
               hostPath:
                 path: /etc/localtime
           containers:
             - name: data-backup
-              image: 'busybox:1.32.0'       #使用 busybox 镜像执行备份操作
+              image:  mysql:8.0.19
               command:                      #配置要执行的备份命令
                 - sh
                 - '/var/db/srcipt/backup.sh'          
               volumeMounts:
                 - name: backup-config
-                  mountPath: /var/db/script
-                - name: data                #应用运行的数据的存储的 NFS 服务器地址
-                  mountPath: /data
+                  mountPath: /var/script
+                  subPath: backup.sh
                 - name: data-backup         #存储备份数据的 NFS 服务器地址     
                   mountPath: /data-backup
                 - name: time-zone           #挂载系统时区，防止时区产生的影响
