@@ -6,7 +6,7 @@ metadata:
   labels:
     app: data-backup
 spec:
-  schedule: 0 4 * * *
+  schedule: 0 10 * * *
   concurrencyPolicy: Allow
   suspend: false
   successfulJobsHistoryLimit: 1
@@ -19,24 +19,33 @@ spec:
             - name: backup-config
               configMap:
                 name: mysql-backup-config
-            - name: data-backup
+            - name: data-backup-v
               nfs:
                 server: 139.196.106.5      #挂入 NFS 存储2
-                path: /data/backup/mysql/things/
+                path: /data/backup/mysql/
             - name: time-zone               #挂入宿主机的时区文件
               hostPath:
                 path: /etc/localtime
           containers:
             - name: data-backup
               image:  mysql:8.0.19
+              env:
+                - name: BACKUP_PATH
+                  value: "things"  
+                - name: BACKUP_SERVER_HOST
+                  value: "db.zhangyongqiao.com"    
+                - name: BACKUP_SERVER_USER
+                  value: "root"
+                - name: BACKUP_SERVER_PASSWORD
+                  value: "root_passowrd"
               command:                      #配置要执行的备份命令
                 - sh
-                - '/var/db/srcipt/backup.sh'          
+                - '/var/srcipt/backup.sh'          
               volumeMounts:
                 - name: backup-config
                   mountPath: /var/script
                   subPath: backup.sh
-                - name: data-backup         #存储备份数据的 NFS 服务器地址     
+                - name: data-backup-v         #存储备份数据的 NFS 服务器地址     
                   mountPath: /data-backup
                 - name: time-zone           #挂载系统时区，防止时区产生的影响
                   mountPath: /etc/localtime

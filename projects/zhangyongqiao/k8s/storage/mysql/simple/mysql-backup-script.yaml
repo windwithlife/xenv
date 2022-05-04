@@ -23,13 +23,10 @@ data:
     database_name=test
 
     #host
-    host=db.zhangyongqiao.com
     host=$BACKUP_SERVER_HOST
     #用户名
-    username=root
     username=$BACKUP_SERVER_USER
     #密码
-    password=root_password
     password=$BACKUP_SERVER_PASSWORD
     
     
