@@ -3,8 +3,6 @@ kind: ConfigMap
 metadata:
   name: database-backup-config
 data:
-  SPRING_PROFILES_ACTIVE: prod
-  SERVER_PORT: "80"
 
   #database section
   DATABASE_BACKUP_SERVER_HOST: "db.zhangyongqiao.com"
