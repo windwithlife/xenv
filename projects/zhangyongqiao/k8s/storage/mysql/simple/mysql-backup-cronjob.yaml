@@ -1,8 +1,7 @@
 kind: CronJob
-apiVersion: batch/v1beta1
+apiVersion: batch/v1
 metadata:
   name: data-backup
-  namespace: devops
   labels:
     app: data-backup
 spec:
