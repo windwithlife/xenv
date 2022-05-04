@@ -8,6 +8,7 @@ data:
     #/bin/bash
     
    
+    backup_path=/data-backup
     if [ -z '$BACKUP_PATH' ];
     then
        backup_path=/data-backup
