@@ -58,8 +58,8 @@ data:
       backup_filename=$database_name-$date_time;
     fi
 
-    echo BACKUP_PATH_LOCATE; $backup_path
-    echo BACKUP_DATABASE: $database_name
+    echo BACKUP_PATH_LOCATE-$backup_path
+    echo BACKUP_DATABASE-$database_name
 
     #mysqldump -u $username -p$password --master-data=2 --default-character-set=utf8 --single-transaction --all-databases  > $backup_path/$database_name-$date_time.sql
     cd $backup_path
