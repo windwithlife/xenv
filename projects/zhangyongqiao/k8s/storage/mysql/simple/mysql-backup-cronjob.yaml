@@ -36,7 +36,7 @@ spec:
                 - name: BACKUP_SERVER_USER
                   value: "root"
                 - name: BACKUP_SERVER_PASSWORD
-                  value: "root_passowrd"
+                  value: "root_password"
               command:                      #配置要执行的备份命令
                 - sh
                 - '/var/backup.sh'          
