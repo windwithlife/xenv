@@ -6,8 +6,6 @@ metadata:
 data:
   backup.sh: |
     #/bin/bash
-    
-   
     backup_path=/data-backup
     if [ -z '$BACKUP_PATH' ];
     then
@@ -47,7 +45,8 @@ data:
     #如果文件夹不存在则创建
     if [ ! -d $backup_path ]; 
     then 
-      mkdir -p $backup_path; 
+      mkdir -p $backup_path;
+      chmod 777 -R $backup_path;
     fi
     #开始备份
     if [ -z "$BACKUP_DATABASE" ];
