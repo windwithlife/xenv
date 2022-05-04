@@ -39,10 +39,10 @@ spec:
                   value: "root_passowrd"
               command:                      #配置要执行的备份命令
                 - sh
-                - '/var/srcipt/backup.sh'          
+                - '/var/backup.sh'          
               volumeMounts:
                 - name: backup-config
-                  mountPath: /var/script
+                  mountPath: /var/backup.sh
                   subPath: backup.sh
                 - name: data-backup-v         #存储备份数据的 NFS 服务器地址     
                   mountPath: /data-backup

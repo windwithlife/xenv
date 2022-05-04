@@ -29,7 +29,7 @@ spec:
               env:
                 - name: BACKUP_PATH
                   value: "simplex"  
-                - name: BACKUP_SERVER
+                - name: BACKUP_SERVER_HOST
                   value: "db.zhangyongqiao.com"    
                 - name: BACKUP_SERVER_USER
                   value: "root"
