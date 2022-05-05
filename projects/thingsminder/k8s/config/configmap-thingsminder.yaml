@@ -18,15 +18,35 @@ data:
   WECHAT_MINI_APPID: wx6df0275477ded21b
   WECHAT_MINI_APPSECRET: wx6df0275477ded21b
 
+  CONFIG_SERVER_ADDRESS: "47.116.67.226:8848"
+  CONFIG_SERVER_USERNAME: nacos
+  CONFIG_SERVER_PASSWORD: nacos
+  CONFIG_SERVER_NAMESPACE: public
+  CONFIG_SERVER_GROUP_ID:  public
+
+  DISCOVERY_SERVER_ADDRESS: "47.116.67.226:8848"
+  DISCOVERY_SERVER_USERNAME: nacos
+  DISCOVERY_SERVER_PASSWORD: nacos
+  DISCOVERY_SERVER_NAMESPACE: prod-id
+  DISCOVERY_SERVER_GROUP_ID:  public
+
+
   REDIS_HOST: mq.zhangyongqiao.com
   REDIS_PORT: 6379
   REDIS_PASSWORD: 12345678
+
+
 
   #database section
   DATABASE_BACKUP_SERVER_HOST: "db.zhangyongqiao.com"
   DATABASE_BACKUP_SERVER_USER: root
   DATABASE_BACKUP_SERVER_PASSWORD: root_password
   DATABASE_BACKUP_PATH: thingsminder
+
+  PROD_DATASOURCE_URL: jdbc:mysql://db.zhangyongqiao.com:3306/prod?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8
+  PROD_DATASOURCE_USERNAME: root
+  PROD_DATASOURCE_PASSWORD: root_password
+
 
   ACCOUNT_DATASOURCE_URL: jdbc:mysql://db.zhangyongqiao.com:3306/userdb?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8
   ACCOUNT_DATASOURCE_USERNAME: root
