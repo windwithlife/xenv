@@ -93,8 +93,23 @@ spec:
           port: 80
       middlewares:
         - name: cms-stripprefix
-        - name: cors-header              
-            
+        - name: cors-header
+    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/iot-gateway`)
+      kind: Rule
+      services:
+        - name: service-iot-gateway
+          port: 80
+      middlewares:
+        - name: cms-stripprefix
+        - name: cors-header                    
+    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/iot-service`)
+      kind: Rule
+      services:
+        - name: service-iot-service
+          port: 80
+      middlewares:
+        - name: cms-stripprefix
+        - name: cors-header          
 
 ---
 apiVersion: traefik.containo.us/v1alpha1
@@ -114,6 +129,8 @@ spec:
       - /seo-service
       - /java-service
       - /ocr-service
+      - /iot-service
+      - /iot-gateway
      
 
 ---
