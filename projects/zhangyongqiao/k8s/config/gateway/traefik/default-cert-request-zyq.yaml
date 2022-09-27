@@ -17,11 +17,24 @@ metadata:
   name: admin-default-cert
 spec:
   dnsNames:
-    - manager.zhangyongqiao.com
+    - admin.zhangyongqiao.com
   secretName: admin-default-secret
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: manager-default-cert
+spec:
+  dnsNames:
+    - manager.zhangyongqiao.com
+  secretName: manager-default-secret
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer    
 
 ---
 apiVersion: cert-manager.io/v1
