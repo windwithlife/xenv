@@ -109,7 +109,15 @@ spec:
           port: 80
       middlewares:
         - name: cms-stripprefix
-        - name: cors-header          
+        - name: cors-header  
+    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/payment-service`)
+      kind: Rule
+      services:
+        - name: service-payment-service
+          port: 80
+      middlewares:
+        - name: cms-stripprefix
+        - name: cors-header             
 
 ---
 apiVersion: traefik.containo.us/v1alpha1
@@ -127,6 +135,7 @@ spec:
       - /release-service
       - /ugc-service
       - /seo-service
+      - /payment-service
       - /java-service
       - /ocr-service
       - /iot-service
