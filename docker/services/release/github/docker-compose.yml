@@ -2,7 +2,7 @@ version: "3.7"
 
 networks:
   service-network:
-    name: new-service-network
+    name: service-network
 
 
 services:
@@ -20,7 +20,7 @@ services:
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     networks:
-      - new-service-network
+      - default
     volumes:
       - ./conf/mysql/my.cnf:/etc/mysql/my.cnf:rw
       - /var/release/drone_mysql/data:/var/lib/mysql/:rw
@@ -75,7 +75,7 @@ services:
     depends_on:
       - drone_mysql
     networks:
-      - new-service-network
+      - default
 
   drone-runner:
     image: ${DRONE_RUNNER_DOCKER_IMAGE}
@@ -92,7 +92,7 @@ services:
       - DRONE_RPC_SECRET=${DRONE_RPC_SECRET}
       - DRONE_RUNNER_CAPACITY=${DRONE_RUNNER_CAPACITY}
     networks:
-      - new-service-network
+      - default
     depends_on:
       - drone_server
       - drone_mysql
