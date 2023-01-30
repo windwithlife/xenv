@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: database-backup-config
+data:
+
+  #database section
+  DATABASE_BACKUP_SERVER_HOST: "db.zhangyongqiao.com"
+  DATABASE_BACKUP_SERVER_USER: root
+  DATABASE_BACKUP_SERVER_PASSWORD: root_password
+  DATABASE_BACKUP_PATH: simplex
+  DATABASE_BACKUP_NUMBER: "10"
+

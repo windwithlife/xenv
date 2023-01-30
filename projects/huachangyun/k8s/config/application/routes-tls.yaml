@@ -1,0 +1,189 @@
+
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: routes-ingress-tls
+  namespace: default
+spec:
+  entryPoints:
+    - websecure
+  tls:
+   secretName: api-default-secret
+  routes:
+  
+    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/common-service`)
+      kind: Rule
+      services:
+        - name: service-common-service
+          port: 80
+      middlewares:
+        - name: cms-stripprefix   
+        - name: cors-header
+
+    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/account-service`)
+      kind: Rule
+      services:
+        - name: service-account-service
+          port: 80
+      middlewares:
+        - name: cms-stripprefix
+        - name: cors-header    
+
+    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/cms-service`)
+      kind: Rule
+      services:
+        - name: service-cms-service
+          port: 80
+      middlewares:
+        - name: cms-stripprefix
+        - name: cors-header
+
+    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/ops-service`)
+      kind: Rule
+      services:
+        - name: service-ops-service
+          port: 80
+      middlewares:
+        - name: cms-stripprefix
+        - name: cors-header 
+    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/work-order-service`)
+      kind: Rule
+      services:
+        - name: service-work-order-service
+          port: 80
+      middlewares:
+        - name: cms-stripprefix
+        - name: cors-header       
+    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/release-service`)
+      kind: Rule
+      services:
+        - name: service-release-service
+          port: 80
+      middlewares:
+        - name: cms-stripprefix
+        - name: cors-header        
+    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/ugc-service`)
+      kind: Rule
+      services:
+        - name: service-ugc-service
+          port: 80
+      middlewares:
+        - name: cms-stripprefix
+        - name: cors-header  
+    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/estore-service`)
+      kind: Rule
+      services:
+        - name: service-estore-service
+          port: 80
+      middlewares:
+        - name: cms-stripprefix
+        - name: cors-header   
+    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/ocr-service`)
+      kind: Rule
+      services:
+        - name: service-ocr-service
+          port: 80
+      middlewares:
+        - name: cms-stripprefix
+        - name: cors-header             
+    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/java-service`)
+      kind: Rule
+      services:
+        - name: service-java-service
+          port: 80
+      middlewares:
+        - name: cms-stripprefix
+        - name: cors-header
+    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/iot-gateway`)
+      kind: Rule
+      services:
+        - name: service-iot-gateway
+          port: 80
+      middlewares:
+        - name: cms-stripprefix
+        - name: cors-header                    
+    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/iot-service`)
+      kind: Rule
+      services:
+        - name: service-iot-service
+          port: 80
+      middlewares:
+        - name: cms-stripprefix
+        - name: cors-header  
+    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/payment-service`)
+      kind: Rule
+      services:
+        - name: service-payment-service
+          port: 80
+      middlewares:
+        - name: cms-stripprefix
+        - name: cors-header   
+    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/web-platform-service`)
+      kind: Rule
+      services:
+        - name: service-web-platform-service
+          port: 80
+      middlewares:
+        - name: cms-stripprefix
+        - name: cors-header   
+    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/web-platform-cms-service`)
+      kind: Rule
+      services:
+        - name: service-web-platform-cms-service
+          port: 80
+      middlewares:
+        - name: cms-stripprefix
+        - name: cors-header                
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: cms-stripprefix
+spec:
+  stripPrefix:
+    prefixes:
+      - /common-service
+      - /account-service
+      - /cms-service
+      - /opt-service
+      - /work-order-service
+      - /release-service
+      - /ugc-service
+      - /seo-service
+      - /payment-service
+      - /web-platform-service
+      - /java-service
+      - /ocr-service
+      - /iot-service
+      - /iot-gateway
+      - /web-platform-cms-service
+      - /estore-service
+     
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: cors-header
+spec:
+  headers:
+    accessControlAllowMethods:
+      - "GET"
+      - "OPTIONS"
+      - "PUT"
+      - "POST"
+    accessControlAllowOriginList:
+      - "*"
+    accessControlMaxAge: 100
+    accessControlAllowHeaders:
+      - "Content-Type"
+      - "token"
+      - "x-requested-with"
+      - "sw8"
+      - "sw9"
+    accessControlAllowCredentials: true
+    addVaryHeader: true
+
+
+

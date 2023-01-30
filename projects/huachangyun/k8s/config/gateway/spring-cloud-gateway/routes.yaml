@@ -1,0 +1,34 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: work-order-service  
+          uri: lb://work-order-service  # lb 负载均衡 这边必须是微服务名称
+          predicates: 
+            - Path=/work-order-service/**  
+          filters:
+            - StripPrefix=1   
+        - id: common-services  
+          uri: lb://common-services  
+          predicates: 
+            - Path=/common-service/** 
+          filters:
+            - StripPrefix=1 
+        - id: cms-service 
+          uri: lb://cms-service  
+          predicates: 
+            - Path=/cms-service/**
+          filters:
+            - StripPrefix=1  
+        - id: account-service 
+          uri: lb://account-service  
+          predicates: 
+            - Path=/account-service/**  
+          filters:
+            - StripPrefix=1
+        - id: ops-service 
+          uri: lb://ops-service  
+          predicates: 
+            - Path=/ops-service/**  
+          filters:
+            - StripPrefix=1    
