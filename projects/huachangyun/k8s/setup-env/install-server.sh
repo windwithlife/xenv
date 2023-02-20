@@ -23,7 +23,7 @@
 
 #export INSTALL_K3S_EXEC='--tls-san 139.196.106.5,172.19.171.222 --node-external-ip 139.196.106.5  --advertise-address 139.196.106.5 --node-ip 172.19.171.222 --no-deploy servicelb --flannel-backend wireguard --kube-proxy-arg "proxy-mode=ipvs" "masquerade-all=true"'
 #export INSTALL_K3S_EXEC='--node-external-ip 139.196.106.5  --advertise-address 139.196.106.5 --node-ip 172.19.171.222 --flannel-backend wireguard '
-export INSTALL_K3S_EXEC='--node-external-ip 43.254.220.163 --advertise-address 43.254.220.163 --node-ip 192.168.20.139 
+export INSTALL_K3S_EXEC='--node-external-ip 43.254.220.163 --advertise-address 43.254.220.163 --node-ip 192.168.20.139' 
 #export INSTALL_K3S_EXEC='--node-external-ip 139.196.106.5  --advertise-address 139.196.106.5 --node-ip 172.19.171.222 --flannel-backend wireguard#
 #export INSTALL_K3S_EXEC='--node-external-ip 139.196.106.5  --advertise-address 139.196.106.5 --node-ip 172.19.171.222 --kube-apiserver-arg feature-gates=RemoveSelfLink=false
 
