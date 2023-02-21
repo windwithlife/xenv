@@ -4,7 +4,7 @@ metadata:
   name: api-default-cert
 spec:
   dnsNames:
-    - api.zhangyongqiao.com
+    - api.bihuioo.com
   secretName: api-default-secret
   issuerRef:
     name: letsencrypt-prod
@@ -17,7 +17,7 @@ metadata:
   name: admin-default-cert
 spec:
   dnsNames:
-    - admin.zhangyongqiao.com
+    - admin.bihuioo.com
   secretName: admin-default-secret
   issuerRef:
     name: letsencrypt-prod
@@ -30,7 +30,7 @@ metadata:
   name: manager-default-cert
 spec:
   dnsNames:
-    - manager.zhangyongqiao.com
+    - manager.bihuioo.com
   secretName: manager-default-secret
   issuerRef:
     name: letsencrypt-prod
@@ -43,7 +43,7 @@ metadata:
   name: www-default-cert
 spec:
   dnsNames:
-    - www.zhangyongqiao.com
+    - www.bihuioo.com
   secretName: www-default-secret
   issuerRef:
     name: letsencrypt-prod
@@ -56,7 +56,7 @@ metadata:
   name: m-default-cert
 spec:
   dnsNames:
-    - mobile.zhangyongqiao.com
+    - mobile.bihuioo.com
   secretName: m-default-secret
   issuerRef:
     name: letsencrypt-prod
@@ -69,7 +69,7 @@ metadata:
   name: template-default-cert
 spec:
   dnsNames:
-    - template.zhangyongqiao.com
+    - template.bihuioo.com
   secretName: template-default-secret
   issuerRef:
     name: letsencrypt-prod
@@ -83,7 +83,7 @@ metadata:
   name: traefik-default-cert
 spec:
   dnsNames:
-    - traefik.zhangyongqiao.com
+    - traefik.bihuioo.com
   secretName: traefik-default-secret
   issuerRef:
     name: letsencrypt-prod
