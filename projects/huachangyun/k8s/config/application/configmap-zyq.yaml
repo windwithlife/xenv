@@ -6,22 +6,20 @@ data:
   SPRING_PROFILES_ACTIVE: prod
   SERVER_PORT: "80"
 
-  DOMAIN_NAME: zhangyongqiao.com
+  DOMAIN_NAME: bihuioo.com
   SENTRY_DSN: "https://80aaf4ae889b414f9fe72e3904cd5246@sentry.io/1380198"
-  SOA_GATEWAY: api.zhangyongqiao.com
+  SOA_GATEWAY: api.bihuioo.com
 
   SSO_ACCESS_KEY: JMVsA4svqk_TUAjq9jOKy0fLVxBaJpiaAAhcn0gr
   SSO_SECRET_KEY: 39xrdVIpTa65jjPkAB9RCjzdDKN_VY4KdcPkhNjD
   SSO_BUCKET_NAME: windwithlife
   SSO_DOMAIN_NAME: https://images.koudaibook.com
 
-  WECHAT_MINI_APPID: wx6df0275477ded21b
-  WECHAT_MINI_APPSECRET: wx6df0275477ded21b
 
-  REDIS_HOST: mq.zhangyongqiao.com
+
+  REDIS_HOST: db.bihuioo.com
   REDIS_PORT: "6379"
   REDIS_PASSWORD: "12345678"
-  MQ_SERVER_URL: "manager.zhangyongqiao.com:30092"
 
   #Skywalking global config
   SW_AGENT_COLLECTOR_BACKEND_SERVICES: "47.116.67.226:11800"
@@ -41,33 +39,23 @@ data:
 
 
   #database section
-  DATABASE_BACKUP_SERVER_HOST: "db.zhangyongqiao.com"
-  DATABASE_BACKUP_SERVER_USER: root
-  DATABASE_BACKUP_SERVER_PASSWORD: root_password
-  DATABASE_BACKUP_PATH: simplex
 
-  PROD_DATASOURCE_URL: jdbc:mysql://db.zhangyongqiao.com:3306/prod?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8
+
+  PROD_DATASOURCE_URL: jdbc:mysql://db.bihuioo.com:3306/prod?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8
   PROD_DATASOURCE_USERNAME: root
   PROD_DATASOURCE_PASSWORD: root_password
 
 
-  PROJECT_DATASOURCE_URL: jdbc:mysql://db.zhangyongqiao.com:3306/iot?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8
-  PROJECT_DATASOURCE_USERNAME: root
-  PROJECT_DATASOURCE_PASSWORD: root_password
 
-  OPS_DATASOURCE_URL: jdbc:mysql://mysql:3306/ops?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8 
-  OPS_DATASOURCE_USERNAME: root
-  OPS_DATASOURCE_PASSWORD: root_password
-
-  RELEASE_DATASOURCE_URL: jdbc:mysql://mysql:3306/ops?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8 
+  RELEASE_DATASOURCE_URL: jdbc:mysql://db.bihuioo.com:3306/ops?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8 
   RELEASE_DATASOURCE_USERNAME: root
   RELEASE_DATASOURCE_PASSWORD: root_password
 
-  ACCOUNT_DATASOURCE_URL: jdbc:mysql://db.zhangyongqiao.com:3306/user?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8
+  ACCOUNT_DATASOURCE_URL: jdbc:mysql://db.bihuioo.com:3306/user?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8
   ACCOUNT_DATASOURCE_USERNAME: root
   ACCOUNT_DATASOURCE_PASSWORD: root_password
 
-  CMS_DATASOURCE_URL: jdbc:mysql://db.zhangyongqiao.com:3306/prod?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8
+  CMS_DATASOURCE_URL: jdbc:mysql://db.bihuioo.com:3306/prod?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8
   CMS_DATASOURCE_USERNAME: root
   CMS_DATASOURCE_PASSWORD: root_password
 

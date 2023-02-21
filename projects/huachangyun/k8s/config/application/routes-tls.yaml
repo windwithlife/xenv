@@ -11,7 +11,7 @@ spec:
    secretName: api-default-secret
   routes:
   
-    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/common-service`)
+    - match: Host(`api.bihuioo.com`) && PathPrefix(`/common-service`)
       kind: Rule
       services:
         - name: service-common-service
@@ -20,7 +20,7 @@ spec:
         - name: cms-stripprefix   
         - name: cors-header
 
-    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/account-service`)
+    - match: Host(`api.bihuioo.com`) && PathPrefix(`/account-service`)
       kind: Rule
       services:
         - name: service-account-service
@@ -29,7 +29,7 @@ spec:
         - name: cms-stripprefix
         - name: cors-header    
 
-    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/cms-service`)
+    - match: Host(`api.bihuioo.com`) && PathPrefix(`/cms-service`)
       kind: Rule
       services:
         - name: service-cms-service
@@ -38,7 +38,7 @@ spec:
         - name: cms-stripprefix
         - name: cors-header
 
-    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/ops-service`)
+    - match: Host(`api.bihuioo.com`) && PathPrefix(`/ops-service`)
       kind: Rule
       services:
         - name: service-ops-service
@@ -46,7 +46,7 @@ spec:
       middlewares:
         - name: cms-stripprefix
         - name: cors-header 
-    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/work-order-service`)
+    - match: Host(`api.bihuioo.com`) && PathPrefix(`/work-order-service`)
       kind: Rule
       services:
         - name: service-work-order-service
@@ -54,7 +54,7 @@ spec:
       middlewares:
         - name: cms-stripprefix
         - name: cors-header       
-    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/release-service`)
+    - match: Host(`api.bihuioo.com`) && PathPrefix(`/release-service`)
       kind: Rule
       services:
         - name: service-release-service
@@ -62,7 +62,7 @@ spec:
       middlewares:
         - name: cms-stripprefix
         - name: cors-header        
-    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/ugc-service`)
+    - match: Host(`api.bihuioo.com`) && PathPrefix(`/ugc-service`)
       kind: Rule
       services:
         - name: service-ugc-service
@@ -70,7 +70,7 @@ spec:
       middlewares:
         - name: cms-stripprefix
         - name: cors-header  
-    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/estore-service`)
+    - match: Host(`api.bihuioo.com`) && PathPrefix(`/estore-service`)
       kind: Rule
       services:
         - name: service-estore-service
@@ -78,7 +78,7 @@ spec:
       middlewares:
         - name: cms-stripprefix
         - name: cors-header   
-    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/ocr-service`)
+    - match: Host(`api.bihuioo.com`) && PathPrefix(`/ocr-service`)
       kind: Rule
       services:
         - name: service-ocr-service
@@ -86,7 +86,7 @@ spec:
       middlewares:
         - name: cms-stripprefix
         - name: cors-header             
-    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/java-service`)
+    - match: Host(`api.bihuioo.com`) && PathPrefix(`/java-service`)
       kind: Rule
       services:
         - name: service-java-service
@@ -94,7 +94,7 @@ spec:
       middlewares:
         - name: cms-stripprefix
         - name: cors-header
-    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/iot-gateway`)
+    - match: Host(`api.bihuioo.com`) && PathPrefix(`/iot-gateway`)
       kind: Rule
       services:
         - name: service-iot-gateway
@@ -102,7 +102,7 @@ spec:
       middlewares:
         - name: cms-stripprefix
         - name: cors-header                    
-    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/iot-service`)
+    - match: Host(`api.bihuioo.com`) && PathPrefix(`/iot-service`)
       kind: Rule
       services:
         - name: service-iot-service
@@ -110,7 +110,7 @@ spec:
       middlewares:
         - name: cms-stripprefix
         - name: cors-header  
-    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/payment-service`)
+    - match: Host(`api.bihuioo.com`) && PathPrefix(`/payment-service`)
       kind: Rule
       services:
         - name: service-payment-service
@@ -118,7 +118,7 @@ spec:
       middlewares:
         - name: cms-stripprefix
         - name: cors-header   
-    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/web-platform-service`)
+    - match: Host(`api.bihuioo.com`) && PathPrefix(`/web-platform-service`)
       kind: Rule
       services:
         - name: service-web-platform-service
@@ -126,7 +126,7 @@ spec:
       middlewares:
         - name: cms-stripprefix
         - name: cors-header   
-    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/web-platform-cms-service`)
+    - match: Host(`api.bihuioo.com`) && PathPrefix(`/web-platform-cms-service`)
       kind: Rule
       services:
         - name: service-web-platform-cms-service
