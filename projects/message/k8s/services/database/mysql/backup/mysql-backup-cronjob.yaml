@@ -1,0 +1,57 @@
+kind: CronJob
+apiVersion: batch/v1
+metadata:
+  name: data-backup
+  labels:
+    app: data-backup
+spec:
+  schedule: 0 4 * * *
+  concurrencyPolicy: Allow
+  suspend: false
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          volumes:
+            - name: backup-script-config
+              configMap:
+                name: mysql-backup-script-config
+            - name: data-backup-v
+              nfs:
+                server: 139.196.106.5      #挂入 NFS 存储2
+                path: /data/backup/mysql/
+            - name: time-zone               #挂入宿主机的时区文件
+              hostPath:
+                path: /etc/localtime
+          containers:
+            - name: data-backup
+              image:  mysql:8.0.19
+              envFrom:
+              - configMapRef:
+                  name:  database-backup-config
+              # env:
+              #   - name: DATABASE_BACKUP_PATH
+              #     value: "things"  
+              #   - name: DATABASE_BACKUP_SERVER_HOST
+              #     value: "db.zhangyongqiao.com"    
+              #   - name: DATABASE_BACKUP_SERVER_USER
+              #     value: "root"
+              #   - name: DATABASE_BACKUP_SERVER_PASSWORD
+              #     value: "root_password"
+              command:                      #配置要执行的备份命令
+                - sh
+                - '/var/backup.sh'          
+              volumeMounts:
+                - name: backup-script-config
+                  mountPath: /var/backup.sh
+                  subPath: backup.sh
+                - name: data-backup-v         #存储备份数据的 NFS 服务器地址     
+                  mountPath: /data-backup
+                - name: time-zone           #挂载系统时区，防止时区产生的影响
+                  mountPath: /etc/localtime
+              terminationMessagePath: /dev/termination-log
+              terminationMessagePolicy: File
+              imagePullPolicy: IfNotPresent
+          restartPolicy: Never

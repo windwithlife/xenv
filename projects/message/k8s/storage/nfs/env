@@ -1,0 +1,12 @@
+#/bin/bash
+
+#####################NFS
+yum  install  nfs-utils rpcbind  -y 
+mkdir /data
+chmod -Rf 777 /data/
+vim /etc/exports
+/data *(rw,no_root_squash,no_all_squash,insecure)
+#生效配置
+exportfs -r
+systemctl restart rpcbind nfs
+

@@ -1,0 +1,46 @@
+kind: Job
+apiVersion: batch/v1
+metadata:
+  name: data-backup
+  labels:
+    app: data-backup
+spec:
+      template:
+        metadata:
+          name: data-backup
+        spec:
+          volumes:
+            - name: mysql-backup-sh
+              configMap:
+                name: mysql-backup-config
+            - name: data-backup
+              nfs:
+                server: 139.196.106.5      #挂入 NFS 存储2
+                path: /data/backup/mysql/
+            - name: time-zone               #挂入宿主机的时区文件
+              hostPath:
+                path: /etc/localtime
+          containers:
+            - name: data-backup
+              image:  mysql:8.0.19     
+              command:                      
+                - sh
+                - '/var/backup.sh' 
+              env:
+                - name: BACKUP_PATH
+                  value: "simplex"  
+                - name: BACKUP_SERVER_HOST
+                  value: "db.zhangyongqiao.com"    
+                - name: BACKUP_SERVER_USER
+                  value: "root"
+                - name: BACKUP_SERVER_PASSWORD
+                  value: "root_password"                       
+              volumeMounts:
+                - name: mysql-backup-sh
+                  mountPath: /var/backup.sh
+                  subPath: backup.sh
+                - name: data-backup         #存储备份数据的 NFS 服务器地址     
+                  mountPath: /data-backup  
+                - name: time-zone           #挂载系统时区，防止时区产生的影响
+                  mountPath: /etc/localtime
+          restartPolicy: Never

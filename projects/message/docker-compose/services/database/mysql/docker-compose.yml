@@ -1,0 +1,29 @@
+version: "3.7"
+
+networks:
+  service-network:
+    name: service-network
+
+services:
+
+  # 使用mysql
+  service_mysql:
+    image: mysql
+    restart: always
+    container_name: mysql_service
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    networks:
+      - service-network
+    volumes:
+      - ./conf/my.cnf:/etc/mysql/my.cnf:rw
+      - /var/data/mysql/data:/var/lib/mysql/:rw
+      - /var/data/mysql/logs:/var/log/mysql/:rw
+
+  
+
