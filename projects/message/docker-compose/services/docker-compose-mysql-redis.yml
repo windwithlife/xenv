@@ -21,7 +21,7 @@ services:
     networks:
       - service-network
     volumes:
-      - ./mysql/conf/my.cnf:/etc/mysql/my.cnf:rw
+      - ./database/mysql/conf/my.cnf:/etc/mysql/my.cnf:rw
       - ./data/mysql/data:/var/lib/mysql/:rw
       - ./data/mysql/logs:/var/log/mysql/:rw
 

@@ -7,7 +7,7 @@ networks:
 services:
 
   # 使用mysql
-  service_mysql:
+  mysql_alone:
     image: mysql
     restart: always
     container_name: mysql_service
