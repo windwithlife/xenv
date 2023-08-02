@@ -14,11 +14,7 @@ spec:
       - /work-order-service
       - /release-service
       - /ugc-service
-      - /seo-service
-      - /java-service
-      - /ocr-service
-      - /iot-service
-      - /iot-gateway
+     
      
 
 ---
@@ -57,7 +53,7 @@ spec:
     - web
   routes:
   
-    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/common-service`)
+    - match: Host(`api.tianzhikj.net`) && PathPrefix(`/common-service`)
       kind: Rule
       services:
         - name: service-common-service
@@ -66,7 +62,7 @@ spec:
         - name: cms-stripprefix   
         - name: cors-header
 
-    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/account-service`)
+    - match: Host(`api.tianzhikj.net`) && PathPrefix(`/account-service`)
       kind: Rule
       services:
         - name: service-account-service
@@ -75,7 +71,7 @@ spec:
         - name: cms-stripprefix
         - name: cors-header    
 
-    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/cms-service`)
+    - match: Host(`api.tianzhikj.net`) && PathPrefix(`/cms-service`)
       kind: Rule
       services:
         - name: service-cms-service
@@ -84,7 +80,7 @@ spec:
         - name: cms-stripprefix
         - name: cors-header
 
-    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/ops-service`)
+    - match: Host(`api.tianzhikj.net`) && PathPrefix(`/ops-service`)
       kind: Rule
       services:
         - name: service-ops-service
@@ -92,15 +88,8 @@ spec:
       middlewares:
         - name: cms-stripprefix
         - name: cors-header 
-    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/work-order-service`)
-      kind: Rule
-      services:
-        - name: service-work-order-service
-          port: 80
-      middlewares:
-        - name: cms-stripprefix
-        - name: cors-header       
-    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/release-service`)
+      
+    - match: Host(`api.tianzhikj.net`) && PathPrefix(`/release-service`)
       kind: Rule
       services:
         - name: service-release-service
@@ -108,7 +97,7 @@ spec:
       middlewares:
         - name: cms-stripprefix
         - name: cors-header        
-    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/ugc-service`)
+    - match: Host(`api.tianzhikj.net`) && PathPrefix(`/ugc-service`)
       kind: Rule
       services:
         - name: service-ugc-service
@@ -116,44 +105,19 @@ spec:
       middlewares:
         - name: cms-stripprefix
         - name: cors-header  
-    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/seo-service`)
+    - match: Host(`api.tianzhikj.net`) && PathPrefix(`/message-service`)
       kind: Rule
       services:
-        - name: service-seo-service
+        - name: service-message-service
           port: 80
       middlewares:
         - name: cms-stripprefix
-        - name: cors-header   
-    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/ocr-service`)
+        - name: cors-header  
+    - match: Host(`api.tianzhikj.net`) && PathPrefix(`/payment-service`)
       kind: Rule
       services:
-        - name: service-ocr-service
-          port: 80
-      middlewares:
-        - name: cms-stripprefix
-        - name: cors-header             
-    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/java-service`)
-      kind: Rule
-      services:
-        - name: service-java-service
+        - name: service-payment-service
           port: 80
       middlewares:
         - name: cms-stripprefix
         - name: cors-header              
-            
-    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/iot-gateway`)
-      kind: Rule
-      services:
-        - name: service-iot-gateway
-          port: 80
-      middlewares:
-        - name: cms-stripprefix
-        - name: cors-header                    
-    - match: Host(`api.zhangyongqiao.com`) && PathPrefix(`/iot-service`)
-      kind: Rule
-      services:
-        - name: service-iot-service
-          port: 80
-      middlewares:
-        - name: cms-stripprefix
-        - name: cors-header      
