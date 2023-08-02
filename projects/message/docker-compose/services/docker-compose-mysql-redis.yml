@@ -22,8 +22,8 @@ services:
       - service-network
     volumes:
       - ./database/mysql/conf/my.cnf:/etc/mysql/my.cnf:rw
-      - ./data/mysql/data:/var/lib/mysql/:rw
-      - ./data/mysql/logs:/var/log/mysql/:rw
+      - /var/workdir/mysql/data:/var/lib/mysql/:rw
+      - /var/workdir/mysql/logs:/var/log/mysql/:rw
 
   # Redis服务
   service_redis:
@@ -36,7 +36,7 @@ services:
       - service-network
     volumes:
       - ./redis/redis.conf:/usr/local/etc/redis/redis.conf:rw
-      - ./data/redis:/data:rw
+      - /var/workdir/redis:/data:rw
     command:
       /bin/bash -c "redis-server /usr/local/etc/redis/redis.conf "
   
