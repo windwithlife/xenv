@@ -11,7 +11,7 @@ spec:
    secretName: api-default-secret
   routes:
   
-    - match: Host(`gateway.koudaibook.com`) && PathPrefix(`/common-service`)
+    - match: Host(`api.koudaibook.com`) && PathPrefix(`/common-service`)
       kind: Rule
       services:
         - name: service-common-service
@@ -20,7 +20,7 @@ spec:
         - name: cms-stripprefix   
         - name: cors-header
 
-    - match: Host(`gateway.koudaibook.com`) && PathPrefix(`/account-service`)
+    - match: Host(`api.koudaibook.com`) && PathPrefix(`/account-service`)
       kind: Rule
       services:
         - name: service-account-service
@@ -29,7 +29,7 @@ spec:
         - name: cms-stripprefix
         - name: cors-header    
 
-    - match: Host(`gateway.koudaibook.com`) && PathPrefix(`/cms-service`)
+    - match: Host(`api.koudaibook.com`) && PathPrefix(`/cms-service`)
       kind: Rule
       services:
         - name: service-cms-service
@@ -38,30 +38,9 @@ spec:
         - name: cms-stripprefix
         - name: cors-header
 
-    - match: Host(`gateway.koudaibook.com`) && PathPrefix(`/ops-service`)
-      kind: Rule
-      services:
-        - name: service-ops-service
-          port: 80
-      middlewares:
-        - name: cms-stripprefix
-        - name: cors-header 
-    - match: Host(`gateway.koudaibook.com`) && PathPrefix(`/work-order-service`)
-      kind: Rule
-      services:
-        - name: service-work-order-service
-          port: 80
-      middlewares:
-        - name: cms-stripprefix
-        - name: cors-header       
-    - match: Host(`gateway.koudaibook.com`) && PathPrefix(`/release-service`)
-      kind: Rule
-      services:
-        - name: service-release-service
-          port: 80
-      middlewares:
-        - name: cms-stripprefix
-        - name: cors-header        
+ 
+   
+               
 
 ---
 apiVersion: traefik.containo.us/v1alpha1
@@ -74,9 +53,7 @@ spec:
       - /common-service
       - /account-service
       - /cms-service
-      - /opt-service
-      - /work-order-service
-      - /release-service
+      
      
 
 ---
@@ -98,7 +75,10 @@ spec:
       - "Content-Type"
       - "token"
       - "x-requested-with"
+      - "sw8"
+      - "sw9"
     accessControlAllowCredentials: true
     addVaryHeader: true
+
 
 

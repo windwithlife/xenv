@@ -1,0 +1,77 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: api-default-cert
+spec:
+  dnsNames:
+    - api.new-eshop.com
+  secretName: api-default-secret
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+    
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: admin-default-cert
+spec:
+  dnsNames:
+    - admin.new-eshop.com
+  secretName: admin-default-secret
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: www-default-cert
+spec:
+  dnsNames:
+    - www.new-eshop.com
+  secretName: www-default-secret
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: m-default-cert
+spec:
+  dnsNames:
+    - mobile.new-eshop.com
+  secretName: m-default-secret
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: template-default-cert
+spec:
+  dnsNames:
+    - template.new-eshop.com
+  secretName: template-default-secret
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  namespace: kube-system
+  name: traefik-default-cert
+spec:
+  dnsNames:
+    - traefik.new-eshop.com
+  secretName: traefik-default-secret
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
