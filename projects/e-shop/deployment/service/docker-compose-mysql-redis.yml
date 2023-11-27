@@ -1,0 +1,66 @@
+version: "3.7"
+
+networks:
+  service-network:
+    name: service-network
+
+services:
+
+  # 使用mysql
+  service_mysql:
+    image: mysql
+    restart: always
+    container_name: mysql_service
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    networks:
+      - service-network
+    volumes:
+      - ./mysql/conf/my.cnf:/etc/mysql/my.cnf:rw
+      - /var/data/mysql/data:/var/lib/mysql/:rw
+      - /var/data/mysql/logs:/var/log/mysql/:rw
+
+  # Redis服务
+  service_redis:
+    image: redis:latest
+    container_name: redis_service
+    restart: always
+    ports:
+      - 6379:6379
+    networks:
+      - service-network
+    volumes:
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf:rw
+      - /var/data/redis:/data:rw
+    command:
+      /bin/bash -c "redis-server /usr/local/etc/redis/redis.conf "
+
+  #mongodb
+  mongo:
+    image: mongo:5.0.5
+    privileged: true
+    restart: always
+    container_name: mongo
+    hostname: mongo
+    environment:
+      # TZ: Asia/Shanghai
+      MONGO_INITDB_DATABASE: mall-port
+      MONGO_INITDB_ROOT_USERNAME: mongodb
+      MONGO_INITDB_ROOT_PASSWORD: mongo&123
+    ports:
+      - 27017:27017
+    networks:
+      - service-network
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/data/mongo/log:/var/log/mongodb
+      - /var/data/mongo/data:/data/db
+    command: mongod
+   
+  
+
