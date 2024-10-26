@@ -1,0 +1,43 @@
+version: "3.7"
+
+networks:
+  service-network:
+    name: service-network
+
+services:
+
+  # 使用mysql
+  service_mysql:
+    image: mysql
+    restart: always
+    container_name: mysql_service
+    ports:
+      - 83306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    networks:
+      - service-network
+    volumes:
+      - ./mysql/conf/my.cnf:/etc/mysql/my.cnf:rw
+      - ./mysql/data:/var/lib/mysql/:rw
+      - ./mysql/logs:/var/log/mysql/:rw
+
+  #Redis服务
+  service_redis:
+    image: redis:latest
+    container_name: redis_service
+    restart: always
+    ports:
+      - 86379:6379
+    networks:
+      - service-network
+    volumes:
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf:rw
+      - ./redis/data:/data:rw
+    command:
+      /bin/bash -c "redis-server /usr/local/etc/redis/redis.conf "
+
+  
